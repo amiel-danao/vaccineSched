@@ -1,13 +1,13 @@
 <?php
 include_once('config.php');
 
-$query = "SELECT * FROM data_mhs ORDER BY mhs_nim ASC";
+$query = "SELECT * FROM schedules ORDER BY date ASC";
 $result = mysqli_query($connection, $query);
 $array_data = array();
 
-while($baris = mysqli_fetch_assoc($result))
+while($schedule = mysqli_fetch_assoc($result))
 {
-  $array_data[]=$baris;
+  $array_data[]=$schedule;
 }
 
 header('Content-type: text/javascript');
