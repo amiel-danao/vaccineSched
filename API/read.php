@@ -1,8 +1,8 @@
 <?php
-include_once('koneksi.php');
+include_once('config.php');
 
 $query = "SELECT * FROM data_mhs ORDER BY mhs_nim ASC";
-$result = mysqli_query($koneksi, $query);
+$result = mysqli_query($connection, $query);
 $array_data = array();
 
 while($baris = mysqli_fetch_assoc($result))
