@@ -1,0 +1,31 @@
+<resources>
+    <string name="hello_world">Hello Round World!</string>
+    <string-array name="vaccine">
+        <item>VARIVAX</item>
+        <item>PFIZER</item>
+        <item>ASTRAZENECA</item>
+        <item>CORONOVAC</item>
+        <item>SINOVAC</item>
+        <item>VAC</item>
+
+    </string-array>
+    <string-array name="description">
+        <item>RANDOM DESCRIPTION</item>
+        <item>RANDOM DESCRIPTION</item>
+        <item>RANDOM DESCRIPTION</item>
+        <item>RANDOM DESCRIPTION</item>
+        <item>RANDOM DESCRIPTION</item>
+        <item>RANDOM DESCRIPTION</item>
+    </string-array>
+    <string-array name="quantity">
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Open navigation closer</string>
+</resources>

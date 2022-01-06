@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/form_bg"
+    tools:context=".UpdateInfoActivity">
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Fill up the following"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <EditText
+        android:id="@+id/editSex"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Sex"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editBrgy"
+        app:layout_constraintStart_toStartOf="@+id/editBrgy"
+        app:layout_constraintTop_toBottomOf="@+id/editBrgy" />
+
+    <EditText
+        android:id="@+id/editWeight"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Birth Weight:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editSex"
+        app:layout_constraintStart_toStartOf="@+id/editSex"
+        app:layout_constraintTop_toBottomOf="@+id/editSex" />
+
+    <EditText
+        android:id="@+id/editHeight"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Birth Height:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editWeight"
+        app:layout_constraintStart_toStartOf="@+id/editWeight"
+        app:layout_constraintTop_toBottomOf="@+id/editWeight" />
+
+    <EditText
+        android:id="@+id/editMothersName"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Mother's Name:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editHeight"
+        app:layout_constraintStart_toStartOf="@+id/editHeight"
+        app:layout_constraintTop_toBottomOf="@+id/editHeight" />
+
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="First name:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView21"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <EditText
+        android:id="@+id/editTextLastName"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Last name:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextFirstName"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/editTextFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+
+    <EditText
+        android:id="@+id/editBday"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Date of Birth: MM/YY/DD"
+        android:inputType="date"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLastName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextLastName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+    <EditText
+        android:id="@+id/editBirthPlace"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Place of Birth:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editBday"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editBday"
+        app:layout_constraintTop_toBottomOf="@+id/editBday" />
+
+    <EditText
+        android:id="@+id/editFathersName"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Father's Name:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editMothersName"
+        app:layout_constraintStart_toStartOf="@+id/editMothersName"
+        app:layout_constraintTop_toBottomOf="@+id/editMothersName" />
+
+    <EditText
+        android:id="@+id/editBrgy"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="Brgy:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editCity"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editCity"
+        app:layout_constraintTop_toBottomOf="@+id/editCity" />
+
+    <EditText
+        android:id="@+id/editCity"
+        android:layout_width="250dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg2"
+        android:ems="10"
+        android:hint="City:"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editBirthPlace"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editBirthPlace"
+        app:layout_constraintTop_toBottomOf="@+id/editBirthPlace" />
+
+    <Button
+        android:id="@+id/btnConfirmV"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/input_bg"
+        android:text="Confirm"
+        android:textColor="#323232"
+        app:layout_constraintEnd_toEndOf="@+id/editFathersName"
+        app:layout_constraintStart_toStartOf="@+id/editFathersName"
+        app:layout_constraintTop_toBottomOf="@+id/editFathersName"
+        android:backgroundTint="#B9ECB5"/>
+
+    <ImageButton
+        android:id="@+id/imgBtnBack"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/input_bg"
+        app:layout_constraintEnd_toEndOf="@+id/btnConfirmV"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmV"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmV"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        android:backgroundTint="#B9ECB5"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
