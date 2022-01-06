@@ -1,21 +1,31 @@
-package com.android_examples.volleyuserlogin_android_examplescom;
+package com.example.thesis;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import java.util.HashMap;
 import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
     EditText Email, Password;
     Button LoginButton;
@@ -23,58 +33,80 @@ public class LoginActivity extends AppCompatActivity {
     String EmailHolder, PasswordHolder;
     ProgressDialog progressDialog;
     Boolean CheckEditText;
+    TextView tvcreate;
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Email = (EditText) findViewById(R.id.editText_Email);
-        Password = (EditText) findViewById(R.id.editText_Password);
-        LoginButton = (Button) findViewById(R.id.button_login);
+        setContentView(R.layout.activity_l_o_g_i_n__f_o_r_m);
+
+        Email = (EditText) findViewById(R.id.Email);
+        Password = (EditText) findViewById(R.id.Password);
+        LoginButton = (Button) findViewById(R.id.btnLogin);
         requestQueue = Volley.newRequestQueue(LoginActivity.this);
         progressDialog = new ProgressDialog(LoginActivity.this);
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 CheckEditTextIsEmptyOrNot();
                 if (CheckEditText) {
                     UserLogin();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+                    message("Please fill all form fields.");
                 }
             }
         });
+
+        tvcreate = findViewById(R.id.textviewcreate);
+        tvcreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, REGISTER_FORM.class);
+                startActivity(intent);
+
+            }
+        });
     }
+
     public void UserLogin() {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
-	StringRequest request = new StringRequest(Request.Method.POST, ApiClient.URL_LOGIN, response -> {
-            User user = new Gson().fromJson(response, User.class);
-	    progressDialog.dismiss();
-            if (user != null) {
-                Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_LONG).show();
-                finish();
-                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                intent.putExtra("userLoggedIn", user);
-                startActivity(intent);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.LOGIN_URL, response -> {
+            try {
+                User user = new Gson().fromJson(response, User.class);
+                progressDialog.dismiss();
+                if (user != null) {
+                    Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_LONG).show();
+                    finish();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity3.class);
+                    intent.putExtra("userLoggedIn", user);
+                    startActivity(intent);
+                    message("User Login Successfully");
+                }
+                else{
+                    message(response);
+                }
             }
-            else{
-                Toast.makeText(LoginActivity.this, status_pesan, Toast.LENGTH_SHORT).show();
+            catch (JsonSyntaxException exception){
+                message(response);
             }
+
         }, error -> {
-            
+
             if (error instanceof TimeoutError) {
-                Toast.makeText(LoginActivity.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
+                message("Network TimeoutError");
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(LoginActivity.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
+                message("Nerwork NoConnectionError");
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(LoginActivity.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
+                message("Network AuthFailureError");
             } else if (error instanceof ServerError) {
-                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                message("Server Error");
             } else if (error instanceof NetworkError) {
-                Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                message("Network Error");
             } else if (error instanceof ParseError) {
-                Toast.makeText(LoginActivity.this, "Parse Error", Toast.LENGTH_SHORT).show();
+                message("Parse Error");
             } else {
-                Toast.makeText(LoginActivity.this, "Status Error!", Toast.LENGTH_SHORT).show();
+                message("Status Error!");
             }
         }) {
             @Override protected Map < String, String > getParams() {
@@ -97,5 +129,9 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             CheckEditText = true;
         }
+    }
+
+    public void message(String message){
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }

@@ -10,35 +10,27 @@ $brgy = $_POST['brgy'];
 $phone = $_POST['phone'];
 $password = $_POST['password'];
 
-$insert = "INSERT INTO usersinfo (firstname, 
-                                   lastname, 
-                                   email,
-									city,
-									baranggay,
-									phone,
-									password)
-                            VALUES (
-                                   '$firstname',
-                                   '$lastname',
-                                   '$email', 
-                                   '$city',
-									'$brgy'
-									'$phone'
-									'$password'
-									)";
+$insert = "INSERT INTO `usersinfo` (`user_id`, `dateofbirth`, `placeofbirth`,  `mothersname`, `fathersname`, `birthheight`, `birthweight`, `sex`, `firstname`, `lastname`, `city`, `baranggay`, `email`, `password`, `phone`)
+                            									
+VALUES (NULL, NULL, '', '', '', '0', '0', '', '$firstname', '$lastname', '$city', '$brgy', '$email', '$password', '$phone')";
+									
+									 
 
 $exeinsert = mysqli_query($connection, $insert);
 $response = array();
 
 if($exeinsert) {
-  $response['status_kode'] =1;
-  $response['status_pesan'] = "Success! Data Inserted";
+	$exeinsert = mysqli_query($connection, "SELECT * FROM `usersinfo` WHERE email='$email'");
+  
+	while($schedule = mysqli_fetch_assoc($exeinsert))
+	{
+	  $response[0]=$schedule;
+	}
 } else {
-  $response['status_kode'] =0;
-  $response['status_pesan'] = "Failed! Data Not Inserted";
+  $response[0] = "Failed! Data Not Inserted";
 }
 
 mysqli_free_result($exeinsert);
 header('Content-type: text/javascript');
-echo json_encode($response, JSON_PRETTY_PRINT);
+echo json_encode($response[0], JSON_PRETTY_PRINT);
 ?>

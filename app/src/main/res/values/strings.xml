@@ -1,9 +1,48 @@
 <resources>
-    <string name="app_name">VolleyGsonXampp</string>
-    <string name="nim">NIM</string>
-    <string name="name">Name</string>
-    <string name="classs">Class</string>
-    <string name="classss">7-A or 7-B</string>
-    <string name="save">Save</string>
-    <string name="update">Update</string>
+    <string name="app_name">Online Registration</string>
+    <string name="title_activity_r_e_g_i_s_t_e_r__f_o_r_m">REGISTER_FORM</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="title_activity_l_o_g_i_n__f_o_r_m">LOGIN_FORM</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string-array name="vaccine">
+        <item>VARIVAX</item>
+        <item>BCG Vaccine</item>
+        <item>HEPATITIS B</item>
+        <item>PENTAVALENT VACCINE</item>
+        <item>OPV</item>
+        <item>MMR</item>
+
+    </string-array>
+    <string-array name="description">
+        <item>A zoster vaccine is a vaccine that reduces the incidence of herpes zoster, a disease caused by reactivation of the varicella zoster virus, which is also responsible for chickenpox. Shingles provokes a painful rash with blisters, and can be followed by chronic pain, as well as other complications.</item>
+        <item>Bacillus Calmette–Guérin vaccine is a vaccine primarily used against tuberculosis. It is named after its inventors Albert Calmette and Camille Guérin. In countries where TB or leprosy is common, one dose is recommended in healthy babies as soon after birth as possible.</item>
+        <item>Hepatitis B vaccine is a vaccine that prevents hepatitis B. The first dose is recommended within 24 hours of birth with either two or three more doses given after that. This includes those with poor immune function such as from HIV/AIDS and those born premature.</item>
+        <item>Pentavalent vaccine protects against five major diseases: diphtheria, tetanus, pertussis (whooping cough), hepatitis B and Haemophilus influenzae type b (DTP-hepB-Hib). In 2001, Gavi started supporting pentavalent vaccine to boost the low uptake of hepB and Hib vaccine in low-income countries by making them part of routine immunisation programmes.</item>
+        <item>Oral Polio vaccine are vaccine used to prevent poliomyelitis. Two types are used: an inactivated poliovirus given by injection and a weakened poliovirus given by mouth. The World Health Organization recommends all children be fully vaccinated against polio.</item>
+        <item>The MMR vaccine is a vaccine against measles, mumps, and rubella. The first dose is generally given to children around 9 months to 15 months of age, with a second dose at 15 months to 6 years of age, with at least 4 weeks between the doses.</item>
+    </string-array>
+    <string-array name="quantity">
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>3</item>
+        <item>1</item>
+        <item>3</item>
+    </string-array>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Open navigation closer</string>
 </resources>

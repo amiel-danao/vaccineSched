@@ -5,4 +5,9 @@
  define('DB', 'id18222363_vaccineschedule');
 
  $connection = mysqli_connect(HOST, USER, PASS, DB) or die(mysqli_errno());
+ 
+if (mysqli_connect_errno())
+{
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 ?>

@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_edit_profile.xml" value="0.46381578947368424" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_infomation.xml" value="0.33" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_information1.xml" value="0.33" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_l_o_g_i_n__f_o_r_m.xml" value="0.75" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_main2.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_main3.xml" value="0.2775175644028103" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_r_e_g_i_s_t_e_r__f_o_r_m.xml" value="0.25" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_registration_for_appointment.xml" value="0.5" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_tambah_update.xml" value="0.46381578947368424" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/list_items.xml" value="0.46381578947368424" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/my_row.xml" value="0.46381578947368424" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/vaccines_list.xml" value="1.0" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
