@@ -22,33 +22,40 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText Email, Password;
-    Button LoginButton;
-    RequestQueue requestQueue;
-    String EmailHolder, PasswordHolder;
-    ProgressDialog progressDialog;
-    Boolean CheckEditText;
-    TextView tvcreate;
+    private EditText Email, Password;
+    private Button LoginButton;
+    private String EmailHolder, PasswordHolder;
+    private ProgressDialog progressDialog;
+    private TextView tvcreate;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override 
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_l_o_g_i_n__f_o_r_m);
 
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Password);
         LoginButton = (Button) findViewById(R.id.btnLogin);
-        requestQueue = Volley.newRequestQueue(LoginActivity.this);
         progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setCancelable(false);
+        
+        /* FOR DEBUGGING PURPOSE ONLY */
+        TextView textAutoFill = findViewById(R.id.textView);
+        textAutoFill.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Email.setText("test@email.com");
+                Password.setText("Password123$");
+            }
+        });
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                CheckEditTextIsEmptyOrNot();
-                if (CheckEditText) {
+            @Override public void onClick(View view) {                
+                if (isFormValid()) {
                     UserLogin();
                 } else {
                     message("Please fill all form fields.");
@@ -62,24 +69,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, REGISTER_FORM.class);
                 startActivity(intent);
-
             }
         });
     }
 
-    public void UserLogin() {
+    private void UserLogin() {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.LOGIN_URL, response -> {
             try {
                 User user = new Gson().fromJson(response, User.class);
-                progressDialog.dismiss();
                 if (user != null) {
                     Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_LONG).show();
                     finish();
                     Intent intent = new Intent(LoginActivity.this, MainActivity3.class);
-                    intent.putExtra("userLoggedIn", user);
+                    intent.putExtra(Generic.UserLoggedIn, user);
                     startActivity(intent);
                     message("User Login Successfully");
                 }
@@ -88,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
             catch (JsonSyntaxException exception){
-                message(response);
+                message(exception.getMessage());
             }
-
+            
+            progressDialog.dismiss();
         }, error -> {
 
             if (error instanceof TimeoutError) {
@@ -109,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                 message("Status Error!");
             }
         }) {
-            @Override protected Map < String, String > getParams() {
+            @Override 
+            protected Map < String, String > getParams() {
                 Map < String, String > params = new HashMap < String, String > ();
                 params.put("email", EmailHolder);
                 params.put("password", PasswordHolder);
@@ -121,17 +128,13 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void CheckEditTextIsEmptyOrNot() {
+    private boolean isFormValid()() {
         EmailHolder = Email.getText().toString().trim();
         PasswordHolder = Password.getText().toString().trim();
-        if (TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(PasswordHolder)) {
-            CheckEditText = false;
-        } else {
-            CheckEditText = true;
-        }
+        return !(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(PasswordHolder));
     }
 
-    public void message(String message){
+    private void message(String message){
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }
