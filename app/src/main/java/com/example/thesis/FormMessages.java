@@ -2,6 +2,7 @@ package com.example.thesis;
 
 public interface FormMessages{
     
-    public String getSuccessMessage();
-    public String getErrorMessage();
+    String getSuccessMessage();
+    String getErrorMessage();
+    void showError();
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,7 +23,8 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
    NavigationView navigationView;
    Toolbar toolbar;
    MenuItem menuItem;
-   User currentUser;
+   private User currentUser;
+   private TextView txtUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,16 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         if(bundle != null){
             currentUser = (User)bundle.getSerializable("userLoggedIn");
         }
+
+        if(currentUser == null){
+            finish();
+            intent = new Intent(MainActivity3.this, LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
+
+
+
 //for clickable dashboard
         cardView1=(CardView)findViewById(R.id.cardview1);
         cardView1.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +105,8 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         navigationView=findViewById(R.id.nav_view);
         toolbar=findViewById(R.id.toolbar);
 
-
+        txtUserName = navigationView.getHeaderView(0).findViewById(R.id.UserName);
+        txtUserName.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         //for toolbar
         setSupportActionBar(toolbar);
         //end for toolbar

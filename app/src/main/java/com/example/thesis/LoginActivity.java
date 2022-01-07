@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -128,7 +130,11 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private boolean isFormValid()() {
+    @Override
+    public void onBackPressed() {
+    }
+
+    private boolean isFormValid() {
         EmailHolder = Email.getText().toString().trim();
         PasswordHolder = Password.getText().toString().trim();
         return !(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(PasswordHolder));

@@ -1,6 +1,7 @@
 package com.example.thesis;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,13 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thesis.validations.BrgyValidation;
+import com.example.thesis.validations.CityValidation;
+import com.example.thesis.validations.EmailValidation;
+import com.example.thesis.validations.NameValidation;
+import com.example.thesis.validations.PasswordValidation;
+import com.example.thesis.validations.PhoneNumberValidation;
+import com.example.thesis.validations.Validation;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -33,11 +41,11 @@ import java.util.concurrent.Callable;
 
 public class REGISTER_FORM extends AppCompatActivity {
 
-    Button registerbtn;
-    TextView txtViewAlready;
-    ProgressDialog progressDialog;
-
-
+    private Button registerbtn;
+    private TextView txtViewAlready;
+    private ProgressDialog progressDialog;
+    private Validation[] fieldsToValidate;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +64,25 @@ public class REGISTER_FORM extends AppCompatActivity {
         final EditText edt_City = findViewById(R.id.city);
         final EditText edt_Baranggay = findViewById(R.id.editBrgy);
         final EditText Firstname = findViewById(R.id.firstname);
+        context = getApplicationContext();
+
+        fieldsToValidate = new Validation[]{
+                new NameValidation(context, Firstname),
+                new NameValidation(context, Lastname),
+                new CityValidation(context, edt_City),
+                new BrgyValidation(context, edt_Baranggay),
+                new EmailValidation(context, Email),
+                new PhoneNumberValidation(context, Phone),
+                new PasswordValidation(context, Password)
+                };
 
         /* FOR DEBUGGING ONLY */
         TextView txtAutoFill = findViewById(R.id.textView2);
         txtAutoFill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Firstname.setText("test_firstname");
-                Lastname.setText("test_lastname");
+                Firstname.setText("testfirstname");
+                Lastname.setText("testlastname");
                 Email.setText("test@email.com");
                 Password.setText("Password123$");
                 Phone.setText("09912345678");
@@ -71,6 +90,7 @@ public class REGISTER_FORM extends AppCompatActivity {
                 edt_Baranggay.setText("Salawag");
             }
         });
+        /* FOR DEBUGGING ONLY */
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +104,7 @@ public class REGISTER_FORM extends AppCompatActivity {
                 final String brgy = edt_Baranggay.getText().toString().trim();
                 final String phone = Phone.getText().toString().trim();
 
-                if(firstname.isEmpty() || email.isEmpty() || phone.isEmpty() || lastname.isEmpty() || password.isEmpty()){
-                    message("some fields are empty...");
+                if(!isFormValid()){
                     progressDialog.dismiss();
                 }else{
 
@@ -99,7 +118,7 @@ public class REGISTER_FORM extends AppCompatActivity {
                     },
                             new Callable<Void>() {
                                 public Void call() {
-                                    registerUser(firstname, lastname, email, city, brgy, phone, password);
+                                        registerUser(firstname, lastname, email, city, brgy, phone, password);
                                     return null;
                                 }
                             });
@@ -116,6 +135,18 @@ public class REGISTER_FORM extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private boolean isFormValid(){
+        for(Validation validation : fieldsToValidate){
+            if(!validation.isValid()){
+                message(validation.getErrorMessage());
+                validation.showError();
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void getUser(String email, Callable<Void> callbackExist, Callable<Void> callbackNotExist){

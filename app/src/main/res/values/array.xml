@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="valid_cities">
+        <item>dasmariñas</item>
+        <item>dasmariñas city</item>
+        <item>dasma</item>
+    </string-array>
+
+    <string-array name="valid_brgys">
+        <item>salawag</item>
+        <item>brgy. salawag</item>
+        <item>brgy.salawag</item>
+    </string-array>
+
+</resources>

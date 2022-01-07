@@ -17,30 +17,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Thesis">
-        <activity android:name=".NotificationView"></activity>
-        <activity android:name=".Notification" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".RegistrationForAppointment" />
-        <activity android:name=".ConfirmationAppointment" />
-        <activity android:name=".Information1" />
-        <activity android:name=".VaccinesList" />
-        <activity android:name=".YourAppointment" />
-        <activity android:name=".GetAppointment" />
-        <activity android:name=".History" />
+        <activity android:name=".NotificationView" android:screenOrientation="portrait"/>
+        <activity android:name=".Notification" android:screenOrientation="portrait"/>
+        <activity android:name=".EditProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".RegistrationForAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".ConfirmationAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".Information1" android:screenOrientation="portrait"/>
+        <activity android:name=".VaccinesList" android:screenOrientation="portrait"/>
+        <activity android:name=".YourAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".GetAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".History" android:screenOrientation="portrait"/>
         <activity
             android:name=".Infomation"
             android:label="Details"
-            android:parentActivityName=".MainActivity2" />
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".MainActivity3" />
-        <activity android:name=".REGISTER_FORM" />
-        <activity android:name=".LoginActivity">
+            android:parentActivityName=".MainActivity2" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity2" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity3" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".REGISTER_FORM" android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
