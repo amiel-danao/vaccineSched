@@ -1,20 +1,18 @@
 package com.example.thesis;
 
+import android.widget.EditText;
+import android.widget.TextView;
+
 public abstract class Validation implements FormMessages{
     
-    protected int viewId;
     protected String successMessage;
     protected String errorMessage;
-    
-    public Validation(){}
-    
-    public Validation(int id){
-        this.viewId = id;
-    }
     
     public abstract boolean isValid();
     public abstract boolean isValid(String toCheck);
     public abstract boolean isValid(int toCheck);
+    public abstract boolean isValid(EditText toCheck);
+    public abstract boolean isValid(TextView toCheck);
     
     @Override
     public String getSuccessMessage(){
