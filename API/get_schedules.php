@@ -1,15 +1,18 @@
 <?php
-include_once('config.php');
+	include_once('config.php');
 
-$query = "SELECT * FROM schedules ORDER BY date ASC";
-$result = mysqli_query($connection, $query);
-$array_data = array();
+	date_default_timezone_set('Asia/Hong_Kong');
 
-while($schedule = mysqli_fetch_assoc($result))
-{
-  $array_data[]=$schedule;
-}
+	$query = "SELECT * FROM schedules WHERE capacity > 0 AND NOW() < date ORDER BY date ASC";
+	$result = mysqli_query($connection, $query);
+	$schedules = array();
 
-header('Content-type: text/javascript');
-echo json_encode($array_data, JSON_PRETTY_PRINT);
+	while($schedule = mysqli_fetch_assoc($result))
+	{
+	  $schedules[]=$schedule;
+	}
+
+	mysqli_free_result($result);
+	header('Content-type: text/javascript');
+	echo json_encode($schedules, JSON_PRETTY_PRINT);
 ?>

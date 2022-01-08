@@ -16,7 +16,7 @@ public class RegistrationForAppointment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration_for_appointment);
+        setContentView(R.layout.activity_edit_profile);
 
         btnConfirmV = (Button) findViewById(R.id.btnConfirm);
         btnConfirmV.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +30,7 @@ public class RegistrationForAppointment extends AppCompatActivity {
         imgBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegistrationForAppointment.this, GetAppointment.class);
+                Intent intent = new Intent(RegistrationForAppointment.this, SchedulesActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.thesis;
+package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,51 +18,43 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thesis.utilities.Generic;
+import com.example.thesis.R;
+import com.example.thesis.utilities.Urls;
+import com.example.thesis.adapters.VaccinesAdapter;
+import com.example.thesis.models.User;
+import com.example.thesis.models.Vaccine;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class VaccinesActivity extends AppCompatActivity {
+public class VaccinesActivity extends AuthenticatedActivity {
     private RecyclerView recyclerView;
     private ArrayList<Vaccine> vaccineList;
-    private RecyclerViewAdapter vaccinesAdapter;
-    private User currentUser;
+    private VaccinesAdapter vaccinesAdapter;
     private ProgressDialog progressDialog;
 
-    //vaccine information
      @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_available_vaccine);
+        setContentView(R.layout.activity_vaccines);
+
+         if(isFinishing()){
+             return;
+         }
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.vaccines_loading_message));
         progressDialog.setCancelable(false);
-
-        checkLoggedInUser();
 
         recyclerView = findViewById(R.id.vaccinesRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         LoadAllVaccines();
-    }
-
-    private void checkLoggedInUser() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if(bundle != null){
-            currentUser = (User)bundle.getSerializable(Generic.USER_LOGGED_IN_TAG);
-        }
-
-        if(currentUser == null){
-            finish();
-            intent = new Intent(VaccinesActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
     }
 
     private void LoadAllVaccines() {
@@ -76,7 +68,7 @@ public class VaccinesActivity extends AppCompatActivity {
                 }.getType();
 
                 vaccineList = new Gson().fromJson(response, typeModelVaccines);
-                vaccinesAdapter = new RecyclerViewAdapter(VaccinesActivity.this, vaccineList, currentUser);
+                vaccinesAdapter = new VaccinesAdapter(VaccinesActivity.this, vaccineList, currentUser);
                 recyclerView.setAdapter(vaccinesAdapter);
 
             } catch (Exception e) {
@@ -86,20 +78,21 @@ public class VaccinesActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
         }, error -> {
+
             if (error instanceof TimeoutError) {
-                Toast.makeText(VaccinesActivity.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_timeout));
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(VaccinesActivity.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_no_connection));
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(VaccinesActivity.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_auth));
             } else if (error instanceof ServerError) {
-                Toast.makeText(VaccinesActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_server));
             } else if (error instanceof NetworkError) {
-                Toast.makeText(VaccinesActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network));
             } else if (error instanceof ParseError) {
-                Toast.makeText(VaccinesActivity.this, "Parse Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_parse));
             } else {
-                Toast.makeText(VaccinesActivity.this, "Status Error!", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_status));
             }
 
             progressDialog.dismiss();

@@ -1,4 +1,4 @@
-package com.example.thesis;
+package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -23,6 +23,10 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thesis.utilities.Generic;
+import com.example.thesis.R;
+import com.example.thesis.utilities.Urls;
+import com.example.thesis.models.User;
 import com.example.thesis.validations.BrgyValidation;
 import com.example.thesis.validations.CityValidation;
 import com.example.thesis.validations.EmailValidation;
@@ -38,7 +42,7 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 
-public class REGISTER_FORM extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private Button registerbtn;
     private TextView txtViewAlready;
@@ -49,7 +53,7 @@ public class REGISTER_FORM extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_r_e_g_i_s_t_e_r__f_o_r_m);
+        setContentView(R.layout.activity_registration);
         txtViewAlready = findViewById(R.id.txtViewAlready);
         registerbtn = findViewById(R.id.btnSubmit);
         progressDialog = new ProgressDialog(this);
@@ -130,7 +134,7 @@ public class REGISTER_FORM extends AppCompatActivity {
         txtViewAlready.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(REGISTER_FORM.this, LoginActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -208,7 +212,7 @@ public class REGISTER_FORM extends AppCompatActivity {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(REGISTER_FORM.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(RegistrationActivity.this);
         requestQueue.add(request);
     }
 
@@ -224,33 +228,33 @@ public class REGISTER_FORM extends AppCompatActivity {
 
                 if (user != null) {
 
-                    Intent intent = new Intent(REGISTER_FORM.this, MainActivity3.class);
+                    Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
                     intent.putExtra(Generic.USER_LOGGED_IN_TAG, user);
                     startActivity(intent);
                     finish();
                 }
             }
             catch (JsonSyntaxException exception){
-                Toast.makeText(REGISTER_FORM.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             progressDialog.dismiss();
         }, error -> {
 
             if (error instanceof TimeoutError) {
-                Toast.makeText(REGISTER_FORM.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(REGISTER_FORM.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(REGISTER_FORM.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
             } else if (error instanceof ServerError) {
-                Toast.makeText(REGISTER_FORM.this, "Server Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             } else if (error instanceof NetworkError) {
-                Toast.makeText(REGISTER_FORM.this, "Network Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
             } else if (error instanceof ParseError) {
-                Toast.makeText(REGISTER_FORM.this, "Parse Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Parse Error", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(REGISTER_FORM.this, "Status Error!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this, "Status Error!", Toast.LENGTH_SHORT).show();
             }
 
             progressDialog.dismiss();
@@ -272,12 +276,12 @@ public class REGISTER_FORM extends AppCompatActivity {
 
         //AppController.getInstance().addToQueue(request, "edit_data");
 
-        RequestQueue requestQueue = Volley.newRequestQueue(REGISTER_FORM.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(RegistrationActivity.this);
         requestQueue.add(request);
     }
 
 public void message(String message){
-    Toast.makeText(REGISTER_FORM.this, message, Toast.LENGTH_LONG).show();
+    Toast.makeText(RegistrationActivity.this, message, Toast.LENGTH_LONG).show();
 }
 
 

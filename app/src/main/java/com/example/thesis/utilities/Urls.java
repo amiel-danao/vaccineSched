@@ -1,4 +1,4 @@
-package com.example.thesis;
+package com.example.thesis.utilities;
 
 public class Urls {
     public static final String ROOT_URL = "https://testvaccinesched.000webhostapp.com/";
@@ -9,4 +9,5 @@ public class Urls {
     public static final String RESET_PASSWORD_URL = ROOT_URL+"resetpassword";
     public static final String GET_SCHEDULES = ROOT_URL+"get_schedules";
     public static final String GET_AVAILABLE_VACCINES = ROOT_URL+"get_vaccines";
+    public static final String GET_AVAILABLE_SCHEDULES = ROOT_URL+"get_schedules";
 }

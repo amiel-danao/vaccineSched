@@ -1,4 +1,4 @@
-package com.example.thesis;
+package com.example.thesis.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

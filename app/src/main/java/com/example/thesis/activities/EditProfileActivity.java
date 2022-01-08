@@ -1,4 +1,4 @@
-package com.example.thesis;
+package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,12 +11,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thesis.utilities.Generic;
+import com.example.thesis.R;
+import com.example.thesis.utilities.Urls;
+import com.example.thesis.models.Vaccine;
 import com.example.thesis.validations.BirthDayValidation;
 import com.example.thesis.validations.BrgyValidation;
 import com.example.thesis.validations.CityValidation;
@@ -28,15 +30,15 @@ import com.example.thesis.validations.Validation;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AuthenticatedActivity {
     private ImageButton backButton;
     private Button confirmButton;
+    private Button changePasswordButton;
     private TextView txtEditProfileTitle;
-    private User currentUser;
     private Vaccine selectedVaccine;
     private EditText editTextFirstName;
     private EditText editTextLastName;
-    private EditText editBday;
+    private EditText editBirthday;
     private EditText editBirthPlace;
     private EditText editCity;
     private EditText editBrgy;
@@ -53,21 +55,18 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration_for_appointment);
+        setContentView(R.layout.activity_edit_profile);
+
+        if(isFinishing()){
+            return;
+        }
+
         context = getApplicationContext();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null){
-            currentUser = (User)bundle.getSerializable(Generic.USER_LOGGED_IN_TAG);
             selectedVaccine = (Vaccine)bundle.getSerializable(Generic.SELECTED_VACCINE_TAG);
-        }
-
-        if(currentUser == null){
-            finish();
-            intent = new Intent(EditProfileActivity.this, LoginActivity.class);
-            startActivity(intent);
-            return;
         }
 
         progressDialog = new ProgressDialog(this);
@@ -87,9 +86,7 @@ public class EditProfileActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, MainActivity3.class);
-                intent.putExtra(Generic.USER_LOGGED_IN_TAG, currentUser);
-                startActivity(intent);
+                gotoActivity(EditProfileActivity.this, HomeActivity.class);
             }
         });
 
@@ -155,11 +152,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void addVaccineRequiredValidations() {
         vaccineFieldsToValidate = new ArrayList<>(Arrays.asList(
-                new BirthDayValidation(EditProfileActivity.this, editBday)
+                new BirthDayValidation(EditProfileActivity.this, editBirthday)
         ));
 
         if(selectedVaccine != null){
             fieldsToValidate.addAll(vaccineFieldsToValidate);
+            changePasswordButton.setVisibility(View.GONE);
+        }
+        else{
+            changePasswordButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -185,7 +186,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void getViews() {
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
-        editBday = findViewById(R.id.editBday);
+        editBirthday = findViewById(R.id.editBday);
         editBirthPlace = findViewById(R.id.editBirthPlace);
         editCity = findViewById(R.id.editCity);
         editBrgy = findViewById(R.id.editBrgy);
@@ -195,12 +196,14 @@ public class EditProfileActivity extends AppCompatActivity {
         editMothersName = findViewById(R.id.editMothersName);
         editFathersName = findViewById(R.id.editFathersName);
         txtEditProfileTitle = findViewById(R.id.txtEditProfileTitle);
+        changePasswordButton = findViewById(R.id.changePassButton);
+
     }
 
     private void autoFillUserInfo() {
         editTextFirstName.setText(currentUser.getFirstname());
         editTextLastName.setText(currentUser.getLastname());
-        editBday.setText(currentUser.getDateOfBirthString());
+        editBirthday.setText(currentUser.getDateOfBirthString());
         editBirthPlace.setText(currentUser.getPlaceofbirth());
         editCity.setText(currentUser.getCity());
         editBrgy.setText(currentUser.getBaranggay());

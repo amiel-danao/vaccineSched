@@ -4,16 +4,12 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.EditText;
 import com.example.thesis.R;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalField;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class DateValidation extends Validation{
@@ -30,7 +26,7 @@ public class DateValidation extends Validation{
         super(context, editText);
 
         errorMessage = context.getResources().getString(R.string.error_invalid_date);
-        simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.date_format), Locale.US);
+        simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.simple_date_format), Locale.US);
         myCalendar = Calendar.getInstance();
 
         setUpDatePicker();

@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.thesis.activities.HomeActivity;
+
 public class ConfirmationAppointment extends AppCompatActivity {
     private Button btnConfirmVac;
     @Override
@@ -18,7 +20,7 @@ public class ConfirmationAppointment extends AppCompatActivity {
         btnConfirmVac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ConfirmationAppointment.this, MainActivity3.class);
+                Intent intent = new Intent(ConfirmationAppointment.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
