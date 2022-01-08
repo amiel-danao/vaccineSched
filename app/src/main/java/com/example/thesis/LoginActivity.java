@@ -1,6 +1,7 @@
 package com.example.thesis;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,13 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thesis.validations.BrgyValidation;
+import com.example.thesis.validations.CityValidation;
+import com.example.thesis.validations.EmailValidation;
+import com.example.thesis.validations.NameValidation;
+import com.example.thesis.validations.PasswordValidation;
+import com.example.thesis.validations.PhoneNumberValidation;
+import com.example.thesis.validations.Validation;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.util.HashMap;
@@ -30,9 +38,10 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private EditText Email, Password;
     private Button LoginButton;
-    private String EmailHolder, PasswordHolder;
     private ProgressDialog progressDialog;
     private TextView tvcreate;
+    private Validation[] fieldsToValidate;
+    private Context context;
 
     @Override 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton = (Button) findViewById(R.id.btnLogin);
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setCancelable(false);
+        context = getApplicationContext();
+
+        fieldsToValidate = new Validation[]{
+                new EmailValidation(context, Email),
+                new PasswordValidation(context, Password)
+        };
         
         /* FOR DEBUGGING PURPOSE ONLY */
         TextView textAutoFill = findViewById(R.id.textView);
@@ -58,9 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {                
                 if (isFormValid()) {
-                    UserLogin();
+                    UserLogin(Email.getText().toString(), Password.getText().toString());
                 } else {
-                    message("Please fill all form fields.");
+                    message("Wrong email or password!");
                 }
             }
         });
@@ -75,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void UserLogin() {
+    private void UserLogin(String EmailHolder, String PasswordHolder) {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
@@ -91,31 +106,35 @@ public class LoginActivity extends AppCompatActivity {
                     message("User Login Successfully");
                 }
                 else{
-                    message(response);
+                    //message(response);
+                    message("Wrong email or password!");
                 }
             }
             catch (JsonSyntaxException exception){
-                message(exception.getMessage());
+                //message(exception.getMessage());
+                message("Wrong email or password!");
             }
             
             progressDialog.dismiss();
         }, error -> {
 
             if (error instanceof TimeoutError) {
-                message("Network TimeoutError");
+                message(getString(R.string.error_network_timeout));
             } else if (error instanceof NoConnectionError) {
-                message("Nerwork NoConnectionError");
+                message(getString(R.string.error_network_no_connection));
             } else if (error instanceof AuthFailureError) {
-                message("Network AuthFailureError");
+                message(getString(R.string.error_network_auth));
             } else if (error instanceof ServerError) {
-                message("Server Error");
+                message(getString(R.string.error_network_server));
             } else if (error instanceof NetworkError) {
-                message("Network Error");
+                message(getString(R.string.error_network));
             } else if (error instanceof ParseError) {
-                message("Parse Error");
+                message(getString(R.string.error_parse));
             } else {
-                message("Status Error!");
+                message(getString(R.string.error_status));
             }
+
+            progressDialog.dismiss();
         }) {
             @Override 
             protected Map < String, String > getParams() {
@@ -134,10 +153,14 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    private boolean isFormValid() {
-        EmailHolder = Email.getText().toString().trim();
-        PasswordHolder = Password.getText().toString().trim();
-        return !(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(PasswordHolder));
+    private boolean isFormValid(){
+        for(Validation validation : fieldsToValidate){
+            if(!validation.isValid()){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void message(String message){

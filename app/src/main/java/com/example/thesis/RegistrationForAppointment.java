@@ -12,13 +12,13 @@ public class RegistrationForAppointment extends AppCompatActivity {
 
     private Button btnConfirmV;
     ImageButton imgBtnBack;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_for_appointment);
 
-        btnConfirmV = (Button) findViewById(R.id. btnConfirmV);
+        btnConfirmV = (Button) findViewById(R.id.btnConfirm);
         btnConfirmV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,8 +34,5 @@ public class RegistrationForAppointment extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 }

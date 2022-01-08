@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,7 +107,7 @@ public class REGISTER_FORM extends AppCompatActivity {
                     progressDialog.dismiss();
                 }else{
 
-                    getUser(email,
+                    userExists(email,
                          new Callable<Void>() {
                         public Void call() {
                             message("email already in use!");
@@ -149,7 +148,7 @@ public class REGISTER_FORM extends AppCompatActivity {
         return true;
     }
 
-    private void getUser(String email, Callable<Void> callbackExist, Callable<Void> callbackNotExist){
+    private void userExists(String email, Callable<Void> callbackExist, Callable<Void> callbackNotExist){
         String url = Urls.GET_USER_URL;
 
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
@@ -183,21 +182,22 @@ public class REGISTER_FORM extends AppCompatActivity {
         }, error -> {
 
             if (error instanceof TimeoutError) {
-                Toast.makeText(REGISTER_FORM.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_timeout));
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(REGISTER_FORM.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_no_connection));
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(REGISTER_FORM.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_auth));
             } else if (error instanceof ServerError) {
-                Toast.makeText(REGISTER_FORM.this, "Server Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_server));
             } else if (error instanceof NetworkError) {
-                Toast.makeText(REGISTER_FORM.this, "Network Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network));
             } else if (error instanceof ParseError) {
-                Toast.makeText(REGISTER_FORM.this, "Parse Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_parse));
             } else {
-                Toast.makeText(REGISTER_FORM.this, "Status Error!", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_status));
             }
 
+            progressDialog.dismiss();
         }) {
             @NonNull
             @Override
@@ -225,7 +225,7 @@ public class REGISTER_FORM extends AppCompatActivity {
                 if (user != null) {
 
                     Intent intent = new Intent(REGISTER_FORM.this, MainActivity3.class);
-                    intent.putExtra("userLoggedIn", user);
+                    intent.putExtra(Generic.USER_LOGGED_IN_TAG, user);
                     startActivity(intent);
                     finish();
                 }

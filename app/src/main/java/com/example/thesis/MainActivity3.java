@@ -34,7 +34,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null){
-            currentUser = (User)bundle.getSerializable("userLoggedIn");
+            currentUser = (User)bundle.getSerializable(Generic.USER_LOGGED_IN_TAG);
         }
 
         if(currentUser == null){
@@ -43,8 +43,6 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
             return;
         }
-
-
 
 //for clickable dashboard
         cardView1=(CardView)findViewById(R.id.cardview1);
@@ -65,6 +63,13 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             }
         });
 
+        cardView3 =(CardView)findViewById(R.id.cardview3);
+        cardView3.setOnClickListener(v -> {
+            Intent intent1 = new Intent(MainActivity3.this, VaccinesActivity.class);
+            intent1.putExtra(Generic.USER_LOGGED_IN_TAG, currentUser);
+            startActivity(intent1);
+        });
+
 
         cardView4 =(CardView)findViewById(R.id.cardview4);
         cardView4.setOnClickListener(new View.OnClickListener() {
@@ -75,30 +80,6 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             }
         });
         //end of clickable dashboard
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //for drawer layout
         drawerLayout=findViewById(R.id.drawer_Layout);
@@ -117,30 +98,6 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        //end for navigatation bar
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -170,13 +127,10 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
         return true;
     }
-    public void EditProfile(){
-        Intent intent1 = new Intent(MainActivity3.this, EditProfile.class);
-        startActivity(intent1);
-    }
 
-    public void ShowVaccines(View view) {
-        Intent intent = new Intent(MainActivity3.this,VaccinesList.class);
-        startActivity(intent);
+    public void EditProfile(){
+        Intent intent1 = new Intent(MainActivity3.this, EditProfileActivity.class);
+        intent1.putExtra(Generic.USER_LOGGED_IN_TAG, currentUser);
+        startActivity(intent1);
     }
 }

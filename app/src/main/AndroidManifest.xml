@@ -19,11 +19,11 @@
         android:theme="@style/Theme.Thesis">
         <activity android:name=".NotificationView" android:screenOrientation="portrait"/>
         <activity android:name=".Notification" android:screenOrientation="portrait"/>
-        <activity android:name=".EditProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".EditProfileActivity" android:screenOrientation="portrait"/>
         <activity android:name=".RegistrationForAppointment" android:screenOrientation="portrait"/>
         <activity android:name=".ConfirmationAppointment" android:screenOrientation="portrait"/>
-        <activity android:name=".Information1" android:screenOrientation="portrait"/>
-        <activity android:name=".VaccinesList" android:screenOrientation="portrait"/>
+        <activity android:name=".VaccinePreviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".VaccinesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".YourAppointment" android:screenOrientation="portrait"/>
         <activity android:name=".GetAppointment" android:screenOrientation="portrait"/>
         <activity android:name=".History" android:screenOrientation="portrait"/>

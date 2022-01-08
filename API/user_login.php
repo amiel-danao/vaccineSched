@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	include 'config.php';
 
 	if(!isset($_POST['email']) || !isset($_POST['password'])){
-		echo "Invalid Username or Password Please Try Again !";
+		echo "Invalid email or Password Please Try Again !";
 		return;
 	}
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		echo json_encode($array_data, JSON_PRETTY_PRINT);
 		return;
 	} else {
-		echo "Invalid Username or Password Please Try Again !";
+		echo "Invalid email or Password Please Try Again !";
 		return;
 	}
 	mysqli_free_result($result);

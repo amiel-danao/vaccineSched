@@ -187,7 +187,15 @@ public class User implements Serializable {
         return phone;
     }
 
+    public String getStringPhone() {
+        return phone == null? "" : phone.toString();
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDateOfBirthString() {
+        return dateofbirth == null? "" : dateofbirth.toString();
     }
 }

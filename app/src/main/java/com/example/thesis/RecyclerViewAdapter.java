@@ -2,6 +2,7 @@ package com.example.thesis;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +21,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final Context context;
     ArrayList<Vaccine> arrayVaccines, dataFilter;
     CustomFilter filter;
+    private User currentUser;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Vaccine> arrayVaccines) {
+    public RecyclerViewAdapter(Context context, ArrayList<Vaccine> arrayVaccines, User currentUser) {
         this.context = context;
         this.arrayVaccines = arrayVaccines;
         this.dataFilter = arrayVaccines;
+        this.currentUser = currentUser;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.vaccines_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.vaccines_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,9 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Vaccine Vaccine = arrayVaccines.get(position);
         
-        holder.txt_vaccine_name.setText(String.valueOf(Vaccine.getName()));
-        holder.txt_dose.setText(Vaccine.getDose());
-        holder.txt_description.setText(Vaccine.getDescription());
+        holder.txt_vaccine_name.setText(Vaccine.getName());
+        holder.txt_dose.setText(String.valueOf(Vaccine.getDose()));
     }
 
     @Override
@@ -61,20 +63,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         
         private final TextView txt_vaccine_name;
         private final TextView txt_dose;
-        private final TextView txt_description;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txt_vaccine_name = itemView.findViewById(R.id.rcy_name);
             txt_dose = itemView.findViewById(R.id.rcy_dose);
-            txt_description = itemView.findViewById(R.id.rcy_description);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-                Vaccine Vaccine = arrayVaccines.get(position);
+                Vaccine vaccine = arrayVaccines.get(position);
 
-                
+                Intent intent1 = new Intent(context, VaccinePreviewActivity.class);
+                intent1.putExtra(Generic.USER_LOGGED_IN_TAG, currentUser);
+                intent1.putExtra(Generic.SELECTED_VACCINE_TAG, vaccine);
+                context.startActivity(intent1);
             });
         }
     }
