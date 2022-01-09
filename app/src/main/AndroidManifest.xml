@@ -21,11 +21,11 @@
         <activity android:name=".Notification" android:screenOrientation="portrait"/>
         <activity android:name=".activities.EditProfileActivity" android:screenOrientation="portrait"/>
         <activity android:name=".RegistrationForAppointment" android:screenOrientation="portrait"/>
-        <activity android:name=".ConfirmationAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AppointmentConfirmationActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.VaccinePreviewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.VaccinesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".YourAppointment" android:screenOrientation="portrait"/>
-        <activity android:name=".SchedulesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.SchedulesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".History" android:screenOrientation="portrait"/>
         <activity
             android:name=".Infomation"

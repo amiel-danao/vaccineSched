@@ -47,8 +47,8 @@
     <string name="navigation_drawer_close">Open navigation closer</string>
 
 
-    <string name="simple_date_format">YYYY-MM-DD</string>
-    <string name="word_date_format">MMMM-DD-YYYY</string>
+    <string name="simple_date_format">yyyy-MM-dd</string>
+    <string name="word_date_format">MMMM-dd-yyyy</string>
     <string name="error_invalid_date">Invalid date!</string>
     <string name="error_age_not_allowed">Minimum age of %1$d are only allowed to be vaccinated!</string>
     <string name="used_time_zone">Asia/Hong_Kong</string>
@@ -66,5 +66,8 @@
     <string name="vaccines_loading_message">Getting available vaccines</string>
     <string name="schedules_loading">Getting all available schedules</string>
     <string name="full_name">%1$s %2$s</string>
+    <string name="regex_valid_name">[A-Za-z ]*</string>
+    <string name="regex_valid_email">^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$</string>
+    <string name="response_user_updated_successfully">User updated Successfully</string>
     <integer name="minimum_age_for_vaccine">16</integer>
 </resources>

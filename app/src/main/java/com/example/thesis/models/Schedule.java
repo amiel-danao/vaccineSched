@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Schedule implements Serializable {
     @SerializedName("id")
@@ -57,7 +58,7 @@ public class Schedule implements Serializable {
         String toReturn = "";
 
         if(date != null){
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.word_date_format));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.word_date_format), Locale.US);
             toReturn = simpleDateFormat.format(date);
         }
 

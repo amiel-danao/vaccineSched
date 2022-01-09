@@ -7,9 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.thesis.SchedulesActivity;
 import com.example.thesis.models.User;
-import com.example.thesis.models.Vaccine;
 import com.example.thesis.utilities.Generic;
 
 public class AuthenticatedActivity extends AppCompatActivity {

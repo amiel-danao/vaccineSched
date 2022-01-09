@@ -4,11 +4,15 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import com.example.thesis.R;
+
 import java.util.regex.Pattern;
 
 public class NameValidation extends Validation {
 
-    private final String REGEX_PATTERN = "[A-Za-z ]*";
+    public NameValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+    }
 
     public NameValidation(Context context, EditText editText) {
         super(context, editText);
@@ -22,7 +26,7 @@ public class NameValidation extends Validation {
             return false;
         }
 
-        return Pattern.compile(REGEX_PATTERN)
+        return Pattern.compile(context.getResources().getString(R.string.regex_valid_name))
                 .matcher(nameToCheck.trim())
                 .matches();
     }

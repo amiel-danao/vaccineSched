@@ -10,10 +10,13 @@ public class BrgyValidation extends Validation{
     
     private final String[] VALID_BRGYS = context.getResources().getStringArray(R.array.valid_brgys);
 
+    public BrgyValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+    }
+
     public BrgyValidation(Context context, EditText editText) {
         super(context, editText);
     }
-
 
     @Override
     public boolean isValid(String brgyNameToCheck){

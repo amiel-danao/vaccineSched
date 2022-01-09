@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.thesis.activities.AppointmentConfirmationActivity;
+import com.example.thesis.activities.SchedulesActivity;
+
 public class RegistrationForAppointment extends AppCompatActivity {
 
     private Button btnConfirmV;
@@ -22,7 +25,7 @@ public class RegistrationForAppointment extends AppCompatActivity {
         btnConfirmV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegistrationForAppointment.this, ConfirmationAppointment.class);
+                Intent intent = new Intent(RegistrationForAppointment.this, AppointmentConfirmationActivity.class);
                 startActivity(intent);
             }
         });

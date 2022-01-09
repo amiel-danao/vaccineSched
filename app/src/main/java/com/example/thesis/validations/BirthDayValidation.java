@@ -12,6 +12,10 @@ import java.util.Date;
 
 public class BirthDayValidation extends DateValidation{
 
+    public BirthDayValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+    }
+
     public BirthDayValidation(Context context, EditText editText) {
         super(context, editText);
     }

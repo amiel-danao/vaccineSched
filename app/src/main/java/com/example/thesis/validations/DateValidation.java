@@ -19,16 +19,19 @@ public class DateValidation extends Validation{
     protected long minDate;
     protected long maxDate;
     protected final SimpleDateFormat simpleDateFormat;
-    protected final Calendar myCalendar;
+    protected final Calendar myCalendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+
+    public DateValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+        simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.simple_date_format), Locale.US);
+    }
 
     public DateValidation(Context context, EditText editText) {
         super(context, editText);
 
         errorMessage = context.getResources().getString(R.string.error_invalid_date);
         simpleDateFormat = new SimpleDateFormat(context.getResources().getString(R.string.simple_date_format), Locale.US);
-        myCalendar = Calendar.getInstance();
-
         setUpDatePicker();
     }
 

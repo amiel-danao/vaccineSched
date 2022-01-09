@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.thesis.R;
-import com.example.thesis.SchedulesActivity;
 import com.example.thesis.models.Vaccine;
 import com.example.thesis.utilities.Generic;
 

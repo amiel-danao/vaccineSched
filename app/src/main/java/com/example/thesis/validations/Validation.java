@@ -13,6 +13,12 @@ public abstract class Validation implements FormMessages {
     protected String errorMessage;
     protected EditText editText;
     protected TextView textView;
+    protected String stringToCheck;
+
+    public Validation(Context context, String stringToCheck) {
+        this.context = context;
+        this.stringToCheck = stringToCheck;
+    }
 
     public Validation(Context context, EditText editText) {
         this.context = context;
@@ -20,6 +26,10 @@ public abstract class Validation implements FormMessages {
     }
 
     public boolean isValid(){
+        if(stringToCheck != null){
+            return isValid(stringToCheck);
+        }
+
         if(editText != null){
             return isValid(editText);
         }

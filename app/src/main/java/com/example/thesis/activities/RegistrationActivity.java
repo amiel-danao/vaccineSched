@@ -280,14 +280,9 @@ public class RegistrationActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-public void message(String message){
-    Toast.makeText(RegistrationActivity.this, message, Toast.LENGTH_LONG).show();
-}
-
-
-
-
-
+    public void message(String message){
+        Toast.makeText(RegistrationActivity.this, message, Toast.LENGTH_LONG).show();
+    }
 }
 
 

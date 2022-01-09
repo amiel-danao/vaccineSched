@@ -8,11 +8,14 @@ public class PhoneNumberValidation extends Validation{
     
     private final int PHONE_MAX_LENGTH = 11;
 
+    public PhoneNumberValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+    }
+
     public PhoneNumberValidation(Context context, EditText editText) {
         super(context, editText);
         errorMessage = "Invalid phone number";
     }
-
 
     @Override
     public boolean isValid(String phoneNumberToCheck){

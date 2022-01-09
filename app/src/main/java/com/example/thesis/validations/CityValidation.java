@@ -10,10 +10,13 @@ public class CityValidation extends Validation{
 
     private final String[] VALID_CITIES = context.getResources().getStringArray(R.array.valid_cities);
 
+    public CityValidation(Context context, String stringToCheck) {
+        super(context, stringToCheck);
+    }
+
     public CityValidation(Context context, EditText editText) {
         super(context, editText);
     }
-
 
     @Override
     public boolean isValid(String cityNameToCheck){

@@ -1,29 +1,41 @@
 package com.example.thesis.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thesis.activities.AppointmentConfirmationActivity;
 import com.example.thesis.R;
+import com.example.thesis.activities.EditProfileActivity;
+import com.example.thesis.activities.SchedulesActivity;
 import com.example.thesis.models.Schedule;
 import com.example.thesis.models.User;
+import com.example.thesis.models.Vaccine;
+import com.example.thesis.utilities.Generic;
+import com.example.thesis.validations.UserValidator;
 
 import java.util.ArrayList;
 
 public class SchedulesAdapter extends RecyclerView.Adapter<SchedulesAdapter.ViewHolder>{
     private final Context context;
+    private final Vaccine selectedVaccine;
     ArrayList<Schedule> scheduleList;
-    private User currentUser;
+    private final User currentUser;
+    private UserValidator userValidator;
 
-    public SchedulesAdapter(Context context, ArrayList<Schedule> scheduleList, User currentUser) {
+    public SchedulesAdapter(Context context, ArrayList<Schedule> scheduleList, User currentUser, Vaccine selectedVaccine, String serverDate) {
         this.context = context;
         this.scheduleList = scheduleList;
         this.currentUser = currentUser;
+        this.selectedVaccine = selectedVaccine;
+        userValidator = new UserValidator(this.context, currentUser, serverDate);
     }
 
     @NonNull
@@ -64,8 +76,26 @@ public class SchedulesAdapter extends RecyclerView.Adapter<SchedulesAdapter.View
                 int position = getAdapterPosition();
                 Schedule schedule = scheduleList.get(position);
 
-                // TODO: check user info validity
+                if(userValidator.isUserValid()){
+                    gotoNextActivity(schedule, AppointmentConfirmationActivity.class);
+                }
+                else{
+                    gotoNextActivity(schedule, EditProfileActivity.class);
+                    message(userValidator.getInvalidMessage());
+                }
             });
         }
+    }
+
+    private void message(String message){
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void gotoNextActivity(Schedule schedule, Class<?> cls){
+        Intent intent = new Intent(context, cls);
+        intent.putExtra(Generic.USER_LOGGED_IN_TAG, currentUser);
+        intent.putExtra(Generic.SELECTED_VACCINE_TAG, selectedVaccine);
+        intent.putExtra(Generic.SELECTED_SCHEDULE, schedule);
+        context.startActivity(intent);
     }
 }

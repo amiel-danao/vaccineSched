@@ -3,9 +3,10 @@ package com.example.thesis.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
 
     @SerializedName("user_id")
     @Expose
@@ -188,7 +189,7 @@ public class User implements Serializable {
     }
 
     public String getStringPhone() {
-        return phone == null? "" : phone.toString();
+        return phone == null? "" : phone;
     }
 
     public void setPhone(String phone) {
@@ -196,6 +197,11 @@ public class User implements Serializable {
     }
 
     public String getDateOfBirthString() {
+
         return dateofbirth == null? "" : dateofbirth.toString();
+    }
+
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
     }
 }

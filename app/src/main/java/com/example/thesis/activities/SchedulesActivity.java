@@ -1,6 +1,7 @@
-package com.example.thesis;
+package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -18,10 +19,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.thesis.activities.AuthenticatedActivity;
-import com.example.thesis.activities.LoginActivity;
-import com.example.thesis.activities.VaccinePreviewActivity;
-import com.example.thesis.activities.VaccinesActivity;
+import com.example.thesis.R;
 import com.example.thesis.adapters.SchedulesAdapter;
 import com.example.thesis.models.Schedule;
 import com.example.thesis.models.Vaccine;
@@ -39,6 +37,8 @@ public class SchedulesActivity extends AuthenticatedActivity {
     private SchedulesAdapter schedulesAdapter;
     private Vaccine selectedVaccine;
     private ProgressDialog progressDialog;
+    private Context context;
+    private String serverDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class SchedulesActivity extends AuthenticatedActivity {
             return;
         }
 
+        context = getApplicationContext();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.schedules_loading));
         progressDialog.setCancelable(false);
@@ -60,7 +61,26 @@ public class SchedulesActivity extends AuthenticatedActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        LoadAllSchedules();
+
+        getServerDate();
+    }
+
+    private void getServerDate() {
+
+        progressDialog.show();
+        String url = Urls.GET_SERVER_DATE;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            serverDate = response;
+            LoadAllSchedules();
+
+            progressDialog.dismiss();
+        }, error -> {
+            progressDialog.dismiss();
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(SchedulesActivity.this);
+        requestQueue.add(request);
     }
 
     private void checkSelectedVaccine() {
@@ -88,7 +108,7 @@ public class SchedulesActivity extends AuthenticatedActivity {
                 }.getType();
 
                 schedulesList = new Gson().fromJson(response, typeModelSchedules);
-                schedulesAdapter = new SchedulesAdapter(SchedulesActivity.this, schedulesList, currentUser);
+                schedulesAdapter = new SchedulesAdapter(SchedulesActivity.this, schedulesList, currentUser, selectedVaccine, serverDate);
                 recyclerView.setAdapter(schedulesAdapter);
 
             } catch (Exception e) {
