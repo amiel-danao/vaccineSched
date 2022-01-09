@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Appoinment implements Serializable {
+public class Appointment implements Serializable {
     @SerializedName("appo_id")
     @Expose
     private int appo_id;
@@ -18,12 +18,15 @@ public class Appoinment implements Serializable {
     @SerializedName("phonenumber")
     @Expose
     private String phonenumber;
+    @SerializedName("place")
+    @Expose
+    private String place;
     @SerializedName("appo_date")
     @Expose
     private Date appo_date;
     @SerializedName("appo_time")
     @Expose
-    private Date appo_time;
+    private String appo_time;
     @SerializedName("vaccine")
     @Expose
     private String vaccine;
@@ -36,6 +39,12 @@ public class Appoinment implements Serializable {
     @SerializedName("nurse")
     @Expose
     private String nurse;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("dose")
+    @Expose
+    private int dose;
 
     public int getAppo_id() {
         return appo_id;
@@ -57,7 +66,7 @@ public class Appoinment implements Serializable {
         return appo_date;
     }
 
-    public Date getAppo_time() {
+    public String getAppo_time() {
         return appo_time;
     }
 
@@ -75,5 +84,17 @@ public class Appoinment implements Serializable {
 
     public String getNurse() {
         return nurse;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getDose() {
+        return dose;
     }
 }

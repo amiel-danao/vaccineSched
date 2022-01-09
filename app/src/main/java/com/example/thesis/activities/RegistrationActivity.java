@@ -242,19 +242,19 @@ public class RegistrationActivity extends AppCompatActivity {
         }, error -> {
 
             if (error instanceof TimeoutError) {
-                Toast.makeText(RegistrationActivity.this, "Network TimeoutError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_timeout));
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(RegistrationActivity.this, "Nerwork NoConnectionError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_no_connection));
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(RegistrationActivity.this, "Network AuthFailureError", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_auth));
             } else if (error instanceof ServerError) {
-                Toast.makeText(RegistrationActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network_server));
             } else if (error instanceof NetworkError) {
-                Toast.makeText(RegistrationActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_network));
             } else if (error instanceof ParseError) {
-                Toast.makeText(RegistrationActivity.this, "Parse Error", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_parse));
             } else {
-                Toast.makeText(RegistrationActivity.this, "Status Error!", Toast.LENGTH_SHORT).show();
+                message(getString(R.string.error_status));
             }
 
             progressDialog.dismiss();

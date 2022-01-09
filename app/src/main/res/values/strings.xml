@@ -69,5 +69,11 @@
     <string name="regex_valid_name">[A-Za-z ]*</string>
     <string name="regex_valid_email">^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$</string>
     <string name="response_user_updated_successfully">User updated Successfully</string>
+    <string name="message_already_have_appointment">You are already have an appointment on this schedule!</string>
+    <string name="loading_checking_existing_appointments">Checking existing appointments...</string>
+    <string name="loading_saving_appointment">Saving appointment...</string>
+    <string name="response_ok">OK</string>
+    <string name="default_appointment_status">WAITING</string>
+    <string name="loading_your_appointments">Getting all your appointments...</string>
     <integer name="minimum_age_for_vaccine">16</integer>
 </resources>

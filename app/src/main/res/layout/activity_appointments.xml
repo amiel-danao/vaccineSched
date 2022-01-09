@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="HISTORY"
+            android:text="Your Appointment"
             android:textAlignment="center"
-            android:textSize="36sp"  />
+            android:textSize="36sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appointmentsRecyclerView"

@@ -2,26 +2,18 @@ package com.example.thesis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.thesis.utilities.Generic;
-import com.example.thesis.History;
 import com.example.thesis.Notification;
 import com.example.thesis.R;
-import com.example.thesis.models.User;
-import com.example.thesis.YourAppointment;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AuthenticatedActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,7 +34,7 @@ public class HomeActivity extends AuthenticatedActivity implements NavigationVie
 
 //for clickable dashboard
         cardView1=(CardView)findViewById(R.id.cardview1);
-        cardView1.setOnClickListener(v -> gotoActivity(HomeActivity.this, History.class));
+        cardView1.setOnClickListener(v -> gotoActivity(HomeActivity.this, HistoryActivity.class));
 
         cardView2 =(CardView)findViewById(R.id.cardview2);
         cardView2.setOnClickListener(v -> gotoActivity(HomeActivity.this, Notification.class));
@@ -52,7 +44,7 @@ public class HomeActivity extends AuthenticatedActivity implements NavigationVie
 
 
         cardView4 =(CardView)findViewById(R.id.cardview4);
-        cardView4.setOnClickListener(v -> gotoActivity(HomeActivity.this, YourAppointment.class));
+        cardView4.setOnClickListener(v -> gotoActivity(HomeActivity.this, AppointmentsActivity.class));
         //end of clickable dashboard
 
         //for drawer layout

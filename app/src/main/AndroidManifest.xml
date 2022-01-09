@@ -24,9 +24,9 @@
         <activity android:name=".activities.AppointmentConfirmationActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.VaccinePreviewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.VaccinesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".YourAppointment" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AppointmentsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.SchedulesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".History" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.HistoryActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".Infomation"
             android:label="Details"
