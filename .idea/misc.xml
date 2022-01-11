@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_appointment_confirmation.xml" value="0.3115079365079365" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_appointments.xml" value="0.31030444964871196" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_available_vaccine.xml" value="0.2962529274004684" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/activity_confirmation_appointment.xml" value="0.36416861826697894" />
@@ -26,6 +27,7 @@
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/list_items.xml" value="0.46381578947368424" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/my_row.xml" value="0.46381578947368424" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/row_appointment.xml" value="0.67" />
+        <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/row_history.xml" value="0.3115079365079365" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/row_schedule.xml" value="0.67" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/vaccines_list.xml" value="1.0" />
         <entry key="..\:/Users/Amiel/Documents/GitHub/vaccineSchedCombined/app/src/main/res/layout/vaccines_row.xml" value="0.67" />

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -82,9 +83,14 @@ public class DateValidation extends Validation{
     }
 
     public void setServerDate(String dateToSet){
-        Instant instant = Instant.parse(dateToSet + context.getResources().getString(R.string.instant_zero_time));
-        ZoneId z = ZoneId.of( context.getResources().getString(R.string.used_time_zone) );
-        serverDate = instant.atZone(z);
+        try {
+            Instant instant = Instant.parse(dateToSet + context.getResources().getString(R.string.instant_zero_time));
+            ZoneId z = ZoneId.of(context.getResources().getString(R.string.used_time_zone));
+            serverDate = instant.atZone(z);
+        }
+        catch (DateTimeParseException ignored){
+
+        }
     }
 
     @Override
