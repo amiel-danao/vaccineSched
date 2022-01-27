@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class SchedulesAdapter extends RecyclerView.Adapter<SchedulesAdapter.ViewHolder>{
     private final Context context;
     private final Vaccine selectedVaccine;
-    ArrayList<Schedule> scheduleList;
+    private ArrayList<Schedule> scheduleList;
     private final User currentUser;
     private UserValidator userValidator;
 
@@ -56,6 +56,9 @@ public class SchedulesAdapter extends RecyclerView.Adapter<SchedulesAdapter.View
 
     @Override
     public int getItemCount() {
+		if(scheduleList == null){
+			return 0;
+		}
         return scheduleList.size();
     }
 

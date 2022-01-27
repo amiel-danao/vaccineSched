@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder>{
     private final Context context;
-    ArrayList<Appointment> appointmentsList;
+    private ArrayList<Appointment> appointmentsList;
     private final User currentUser;
 
     public AppointmentAdapter(Context context, ArrayList<Appointment> appointmentsList, User currentUser, String serverDate) {
@@ -50,6 +50,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public int getItemCount() {
+		if(appointmentsList == null){
+			return 0;
+		}
         return appointmentsList.size();
     }
 

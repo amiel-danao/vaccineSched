@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class VaccinesAdapter extends RecyclerView.Adapter<VaccinesAdapter.ViewHolder> implements Filterable {
 
     private final Context context;
-    ArrayList<Vaccine> arrayVaccines, dataFilter;
+    public ArrayList<Vaccine> arrayVaccines, dataFilter;
     CustomFilter filter;
     private User currentUser;
 
@@ -54,6 +54,9 @@ public class VaccinesAdapter extends RecyclerView.Adapter<VaccinesAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+		if(arrayVaccines == null){
+			return 0;
+		}
         return arrayVaccines.size();
     }
 

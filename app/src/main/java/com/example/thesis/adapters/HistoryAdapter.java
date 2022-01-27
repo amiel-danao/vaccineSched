@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private final Context context;
-    ArrayList<History> historyList;
+    private ArrayList<History> historyList;
     private final User currentUser;
 
     public HistoryAdapter(Context context, ArrayList<History> historyList, User currentUser) {
@@ -44,6 +44,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+		if(historyList == null){
+			return 0;
+		}
+		
         return historyList.size();
     }
 
