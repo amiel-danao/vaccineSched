@@ -1,0 +1,8 @@
+https://www.php.net/manual/en/function.password-verify.php
+https://www.php.net/manual/en/function.password-hash.php
+https://stackoverflow.com/questions/44422099/password-encryption-android-php/44422148
+
+vaccine checklist form
+feedback form after appointment
+registration restriction, use list in db for bgry and number field for suffix
+
