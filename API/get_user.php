@@ -3,8 +3,9 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 include_once('config.php');
 
 $email = $_POST['email'];
+$brg_id = $_POST['brg_id'];
 
-$select = "SELECT * FROM `usersinfo` WHERE email='$email'";
+$select = "SELECT * FROM `usersinfo` WHERE email='$email' OR brg_id='$brg_id'";
 $exeselect = mysqli_query($connection, $select);
 
 $response = array();

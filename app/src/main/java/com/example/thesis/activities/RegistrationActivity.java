@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,15 @@ public class RegistrationActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private Validation[] fieldsToValidate;
     private Context context;
+    private EditText Lastname;
+    private EditText Email;
+    private EditText Password;
+    private EditText Phone;
+    private EditText edt_City;
+    private EditText edt_Baranggay;
+    private EditText Firstname;
+    private EditText BrgyId;
+    private EditText Suffix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +70,16 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        final EditText Lastname = findViewById(R.id.lastname);
-        final EditText Email = findViewById(R.id.email);
-        final EditText Password = findViewById(R.id.password);
-        final EditText Phone = findViewById(R.id.phone);
-        final EditText edt_City = findViewById(R.id.city);
-        final EditText edt_Baranggay = findViewById(R.id.editBrgy);
-        final EditText Firstname = findViewById(R.id.firstname);
+        Lastname = findViewById(R.id.lastname);
+        Email = findViewById(R.id.email);
+        Password = findViewById(R.id.password);
+        Phone = findViewById(R.id.phone);
+        edt_City = findViewById(R.id.city);
+        edt_Baranggay = findViewById(R.id.editBrgy);
+        Firstname = findViewById(R.id.firstname);
+        BrgyId = findViewById(R.id.editCardId);
+        Suffix = findViewById(R.id.suffix);
+
         context = getApplicationContext();
 
         fieldsToValidate = new Validation[]{
@@ -91,6 +104,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Phone.setText("09912345678");
                 edt_City.setText("Dasmariñas");
                 edt_Baranggay.setText("Salawag");
+                BrgyId.setText("SALAWAG-12345");
             }
         });
         /* FOR DEBUGGING ONLY */
@@ -99,32 +113,12 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
-                final String firstname = Firstname.getText().toString().trim();
-                final String lastname = Lastname.getText().toString().trim();
-                final String email = Email.getText().toString().trim();
-                final String password = Password.getText().toString().trim();
-                final String city = edt_City.getText().toString().trim();
-                final String brgy = edt_Baranggay.getText().toString().trim();
-                final String phone = Phone.getText().toString().trim();
+
 
                 if(!isFormValid()){
                     progressDialog.dismiss();
                 }else{
-
-                    userExists(email,
-                         new Callable<Void>() {
-                        public Void call() {
-                            message("email already in use!");
-                            progressDialog.dismiss();
-                            return null;
-                        }
-                    },
-                            new Callable<Void>() {
-                                public Void call() {
-                                        registerUser(firstname, lastname, email, city, brgy, phone, password);
-                                    return null;
-                                }
-                            });
+                    residentExists();
                 }
             }
         });
@@ -152,7 +146,83 @@ public class RegistrationActivity extends AppCompatActivity {
         return true;
     }
 
-    private void userExists(String email, Callable<Void> callbackExist, Callable<Void> callbackNotExist){
+    private void residentExists(){
+        String url = Urls.GET_RESIDENT_URL;
+
+        final String firstName = Firstname.getText().toString().trim();
+        final String lastName = Lastname.getText().toString().trim();
+        final String email = Email.getText().toString().trim();
+        final String password = Password.getText().toString().trim();
+        final String city = edt_City.getText().toString().trim();
+        final String brgy = edt_Baranggay.getText().toString().trim();
+        final String phone = Phone.getText().toString().trim();
+        final String brgyId = BrgyId.getText().toString().trim();
+        final String suffix = Suffix.getText().toString().trim();
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+            Log.d(Generic.TAG, "Response is : " + response);
+            if(response.equals("OK"))
+            {
+                Log.d(Generic.TAG, "OK to register");
+                userExists(email, brgyId,
+                new Callable<Void>() {
+                    public Void call() {
+                        message("user already exist!");
+                        progressDialog.dismiss();
+                        return null;
+                    }
+                },
+                new Callable<Void>() {
+                    public Void call() {
+                        registerUser(firstName, lastName, email, city, brgy, phone, password);
+                        return null;
+                    }
+                });
+            }
+            else {
+                Log.d(Generic.TAG, "Resident not allowed to register!");
+                message("Resident not allowed to register!");
+                progressDialog.dismiss();
+            }
+
+        }, error -> {
+
+            if (error instanceof TimeoutError) {
+                message(getString(R.string.error_network_timeout));
+            } else if (error instanceof NoConnectionError) {
+                message(getString(R.string.error_network_no_connection));
+            } else if (error instanceof AuthFailureError) {
+                message(getString(R.string.error_network_auth));
+            } else if (error instanceof ServerError) {
+                message(getString(R.string.error_network_server));
+            } else if (error instanceof NetworkError) {
+                message(getString(R.string.error_network));
+            } else if (error instanceof ParseError) {
+                message(getString(R.string.error_parse));
+            } else {
+                message(getString(R.string.error_status));
+            }
+
+            progressDialog.dismiss();
+        }) {
+            @NonNull
+            @Override
+            protected Map<String, String> getParams() {
+                Map <String,String> params = new HashMap<>();
+                params.put("firstname", firstName);
+                params.put("lastname", lastName);
+                params.put("suffix", suffix);
+                params.put("card_id", brgyId);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(RegistrationActivity.this);
+        requestQueue.add(request);
+    }
+
+    private void userExists(String email, String brgId, Callable<Void> callbackExist, Callable<Void> callbackNotExist){
         String url = Urls.GET_USER_URL;
 
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
@@ -208,6 +278,8 @@ public class RegistrationActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map <String,String> params = new HashMap<>();
                 params.put("email", email);
+                params.put("brg_id", brgId);
+
                 return params;
             }
         };

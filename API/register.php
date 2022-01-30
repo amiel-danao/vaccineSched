@@ -10,9 +10,11 @@ $brgy = $_POST['brgy'];
 $phone = $_POST['phone'];
 $password = $_POST['password'];
 
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
 $insert = "INSERT INTO `usersinfo` (`user_id`, `dateofbirth`, `placeofbirth`,  `mothersname`, `fathersname`, `birthheight`, `birthweight`, `sex`, `firstname`, `lastname`, `city`, `baranggay`, `email`, `password`, `phone`)
                             									
-VALUES (NULL, NULL, '', '', '', '0', '0', '', '$firstname', '$lastname', '$city', '$brgy', '$email', '$password', '$phone')";
+VALUES (NULL, NULL, '', '', '', '0', '0', '', '$firstname', '$lastname', '$city', '$brgy', '$email', '$hashed_password', '$phone')";
 									
 									 
 

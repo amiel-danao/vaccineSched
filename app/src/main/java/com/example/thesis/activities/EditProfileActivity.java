@@ -42,7 +42,6 @@ import com.example.thesis.validations.Validation;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -138,22 +137,14 @@ public class EditProfileActivity extends AuthenticatedActivity {
         currentUser.setFirstname(editTextFirstName.getText().toString());
         currentUser.setLastname(editTextLastName.getText().toString());
 
-        String birthdayText = editBirthday.getText().toString();
-        if(!birthdayText.isEmpty()) {
-            try {
-                Instant instant = Instant.parse(birthdayText + context.getResources().getString(R.string.instant_zero_time));
-                ZoneId zoneId = ZoneId.of(context.getResources().getString(R.string.used_time_zone));
-                ZonedDateTime zonedDateTime = instant.atZone(zoneId);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(zonedDateTime.getYear(), zonedDateTime.getMonthValue(), zonedDateTime.getDayOfMonth());
-                currentUser.setDateofbirth(calendar.getTime());
-            }
-            catch(DateTimeParseException dateTimeParseException){
-                message(getString(R.string.error_invalid_date));
-                revertSavedUserFields();
-                progressDialog.dismiss();
-                return;
-            }
+        String bdayText = editBirthday.getText().toString();
+        if(!bdayText.isEmpty()) {
+            Instant instant = Instant.parse(bdayText + context.getResources().getString(R.string.instant_zero_time));
+            ZoneId zoneId = ZoneId.of(context.getResources().getString(R.string.used_time_zone));
+            ZonedDateTime zonedDateTime = instant.atZone(zoneId);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(zonedDateTime.getYear(), zonedDateTime.getMonthValue(), zonedDateTime.getDayOfMonth());
+            currentUser.setDateofbirth(calendar.getTime());
         }
 
         currentUser.setPlaceofbirth(editBirthPlace.getText().toString());
@@ -167,18 +158,6 @@ public class EditProfileActivity extends AuthenticatedActivity {
         currentUser.setFathersname(editFathersName.getText().toString());
 
         saveUpdatedInfo();
-    }
-
-    private void revertSavedUserFields(){
-        if(origUserBeforeEdit != null){
-            return;
-        }
-
-        try {
-            currentUser = (User) origUserBeforeEdit.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void saveUpdatedInfo() {
@@ -195,7 +174,11 @@ public class EditProfileActivity extends AuthenticatedActivity {
                 }
             }
             else{
-                revertSavedUserFields();
+                try {
+                    currentUser = (User) origUserBeforeEdit.clone();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
 
             message(response);

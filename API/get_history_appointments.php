@@ -3,19 +3,23 @@
 	include_once('config.php');
 
 	$user_id = $_POST['user_id'];
+	date_default_timezone_set('Asia/Hong_Kong');
+	  
+	$now = new DateTime();
+	$today = $now->format('Y-m-d');
 
-	$select = "SELECT * FROM `history` WHERE user_id='$user_id'";
+	$select = "SELECT * FROM `appointment` WHERE user_id='$user_id' AND appo_date < CURDATE()";
 	$exeselect = mysqli_query($connection, $select);
 
-	$histories = array();
+	$appointments = array();
 	
-	while($history = mysqli_fetch_assoc($exeselect))
+	while($appointment = mysqli_fetch_assoc($exeselect))
 	{
-	  $histories[] = $history;
+	  $appointments[] = $appointment;
 	}
 
 	mysqli_free_result($exeselect);
 	header('Content-type: text/javascript');
-	echo json_encode($histories, JSON_PRETTY_PRINT);
+	echo json_encode($appointments, JSON_PRETTY_PRINT);
 
 ?>

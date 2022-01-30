@@ -13,8 +13,6 @@
 	$place = $_POST['place'];
 	$email = $_POST['email'];
 	$status = $_POST['status'];
-	$scheduleId = $_POST['scheduleId'];
-	$capacity = $_POST['capacity'];
 
 	$insert = "INSERT INTO `appointment` (`firstname`, `lastname`, `phonenumber`, `appo_date`, `appo_time`, `vaccine`, `user_id`, `nurse`, `place`, `email`, `status`)
 																	
@@ -28,23 +26,9 @@
 		$response = "OK";
 	} else {
 		$response = mysqli_error($connection);
-		return;
-	}
-	
-	$deduct = "UPDATE schedules SET capacity='$capacity'
-				WHERE id='$scheduleId'";
-				
-	$exededuct = mysqli_query($connection, $deduct);
-	
-	if($exededuct) {
-		$response = "OK";
-	} else {
-		$response = mysqli_error($connection);
-		return;
 	}
 
 	mysqli_free_result($exeinsert);
-	mysqli_free_result($exededuct);
 	header('Content-type: text/javascript');
 	echo $response;
 ?>

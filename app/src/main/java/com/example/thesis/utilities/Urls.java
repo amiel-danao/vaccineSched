@@ -5,6 +5,7 @@ public class Urls {
     public static final String REGISTER_URL = ROOT_URL+"register";
     public static final String LOGIN_URL = ROOT_URL+"user_login";
     public static final String GET_USER_URL = ROOT_URL+"get_user";
+    public static final String GET_RESIDENT_URL = ROOT_URL+"get_resident_user";
     public static final String GET_SERVER_DATE = ROOT_URL+"get_server_date";
     public static final String GET_APPOINTMENT = ROOT_URL+"get_appointment";
     public static final String ADD_APPOINTMENT = ROOT_URL+"add_appointment";

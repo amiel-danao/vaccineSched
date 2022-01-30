@@ -135,7 +135,6 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                         context.getResources().getString(R.string.simple_date_format)));
                 params.put("appo_time", selectedSchedule.getTime());
                 params.put("place", selectedSchedule.getPlace());
-                params.put("vaccine" , selectedVaccine.getName());
                 return params;
             }
         };
@@ -197,9 +196,6 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                 params.put("place", selectedSchedule.getPlace());
                 params.put("email", currentUser.getEmail());
                 params.put("status", getString(R.string.default_appointment_status));
-                params.put("scheduleId", String.valueOf(selectedSchedule.getId()));
-                params.put("capacity", String.valueOf(Math.max(0, selectedSchedule.getCapacity() - 1)));
-
                 return params;
             }
         };

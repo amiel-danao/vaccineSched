@@ -6,3 +6,6 @@ vaccine checklist form
 feedback form after appointment
 registration restriction, use list in db for bgry and number field for suffix
 
+1.brgy & surname restriction during registration, suffix
+2.checklist form
+3.feedback form

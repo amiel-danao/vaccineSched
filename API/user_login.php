@@ -9,12 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-
-	$Sql_Query = "select * from usersinfo where email = '$email' and password = '$password' ";
+	
+	$Sql_Query = "select * from usersinfo where email = '$email'";
 	$result = mysqli_query($connection, $Sql_Query);
 	$array_data = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	if (isset($array_data)) {
-		echo json_encode($array_data, JSON_PRETTY_PRINT);
+		$corrrect_password = $array_data['password'];
+		if (password_verify($password, $corrrect_password)) {
+			echo json_encode($array_data, JSON_PRETTY_PRINT);
+		} else {
+			echo "Invalid email or Password Please Try Again !";
+		}
 		return;
 	} else {
 		echo "Invalid email or Password Please Try Again !";
