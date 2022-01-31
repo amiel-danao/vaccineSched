@@ -15,11 +15,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.thesis.checklist.R;
-import com.example.thesis.checklist.adapters.ChecklistItemAdapter;
-import com.example.thesis.checklist.factory.DialogFactory;
-import com.example.thesis.checklist.models.Checklist;
-import com.example.thesis.checklist.models.ChecklistItem;
+import com.example.thesis.R;
+import com.example.thesis.adapters.ChecklistItemAdapter;
+import com.example.thesis.factory.DialogFactory;
+import com.example.thesis.models.Checklist;
+import com.example.thesis.models.ChecklistItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
