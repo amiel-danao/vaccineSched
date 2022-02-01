@@ -1,119 +1,221 @@
 package com.example.thesis.activities;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.thesis.R;
 import com.example.thesis.adapters.ChecklistItemAdapter;
-import com.example.thesis.factory.DialogFactory;
-import com.example.thesis.models.Checklist;
-import com.example.thesis.models.ChecklistItem;
+import com.example.thesis.models.Question;
+import com.example.thesis.utilities.Generic;
+import com.example.thesis.utilities.Urls;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
-public class ChecklistActivity extends AppCompatActivity {
+public class ChecklistActivity extends AuthenticatedActivity {
 
-    @BindView(R.id.recycler_view_checklist)
     RecyclerView checklistRecyclerView;
 
-    @BindView(R.id.add_checklist_name)
-    EditText checklistTitleEditText;
-
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
+    private final String category = "checklist";
+    private final String answer_column = "answer_checklist";
 
-    @BindView(R.id.set_checklist_title)
-    Button setChecklistTitleButton;
 
     private ChecklistItemAdapter checklistItemAdapter;
-    private int checkListId = 0;
+	private ProgressDialog progressDialog;
+
+	private Button confirmButton;
+	private Question acceptQuestion;
+
+    private void getViews(){
+        toolbar = findViewById(R.id.toolbar);
+        checklistRecyclerView = findViewById(R.id.recycler_view_checklist);
+        confirmButton = findViewById(R.id.btn_confirm_checklist);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
-        ButterKnife.bind(this);
+		
+		if(isFinishing()){
+            return;
+        }
+
+		getViews();
+		
+		progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.questions_loading_message));
+        progressDialog.setCancelable(false);
+
         setSupportActionBar(toolbar);
+        getQuestions();
 
-        checklistItemAdapter = new ChecklistItemAdapter();
-        checklistRecyclerView.setAdapter(checklistItemAdapter);
-        checklistRecyclerView.setLayoutManager(new LinearLayoutManager(ChecklistActivity.this));
-
-        int titleNumber = getIntent().getIntExtra(MainActivity.ChecklistExtras.CHECKLIST_NUMBER_TITLE_EXTRA, 0);
-        Checklist checklist = (Checklist) getIntent().getSerializableExtra(MainActivity.ChecklistExtras.CHECKLIST_EXTRA);
-
-        if (checklist != null) {
-            setTitle(checklist.getName());
-            checklistItemAdapter.setChecklistItems(checklist.getChecklistItemList());
-            checkListId = checklist.getId();
-        } else {
-            checkListId = titleNumber;
-            setTitle(getString(R.string.title_activity_checklist, titleNumber));
-        }
     }
+	
+	private void getQuestions(){
+        progressDialog.show();
+		String url = Urls.GET_QUESTIONS_URL + "?category=" + category;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = new MenuInflater(this);
-        menuInflater.inflate(R.menu.checklist_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            try {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_save) {
-            Checklist list = new Checklist();
-            list.setId(checkListId);
-            list.setName(getTitle().toString());
-            list.setChecklistItemList(checklistItemAdapter.getList());
+                Type typeModelQuestions = new TypeToken<ArrayList<Question>>() {
+                }.getType();
+				
+				checklistItemAdapter = new ChecklistItemAdapter();
+				checklistRecyclerView.setAdapter(checklistItemAdapter);
+				checklistRecyclerView.setLayoutManager(new LinearLayoutManager(ChecklistActivity.this));
+				
+				checklistItemAdapter.setChecklistItems(new Gson().fromJson(response, typeModelQuestions));
 
-            Intent intent = new Intent();
-            intent.putExtra(MainActivity.ChecklistExtras.CHECKLIST_EXTRA, list);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
-        }
+                acceptQuestion = new Question();
+                acceptQuestion.setQuestion(getResources().getString(R.string.accept_checklist));
+				checklistItemAdapter.addChecklistItem(acceptQuestion);
 
-        return super.onOptionsItemSelected(item);
-    }
+                confirmButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(acceptQuestion.isChecked()){
+                            if(!isAllowedToProceed()) {
+                                message("You are not allowed to be vaccinated!");
+                            }
+                            else{
+                                saveAnswers();
+                            }
+                        }
+                        else{
+                            message("Please check the confirmation");
+                        }
+                    }
+                });
 
-    @OnClick(R.id.fab)
-    void onFabClicked() {
-        DialogFactory.showDialog(ChecklistActivity.this, new DialogFactory.OnNoteSavedListener() {
-            @Override
-            public void onNoteSaved(String note) {
-                ChecklistItem checklistItem = new ChecklistItem();
-                checklistItem.setNote(note);
-                checklistItem.setChecklistId(checkListId);
-                checklistItemAdapter.addChecklistItem(checklistItem);
+            } catch (Exception e) {
+                message(e.getMessage());
+                e.printStackTrace();
             }
+
+            progressDialog.dismiss();
+        }, error -> {
+
+            if (error instanceof TimeoutError) {
+                message(getString(R.string.error_network_timeout));
+            } else if (error instanceof NoConnectionError) {
+                message(getString(R.string.error_network_no_connection));
+            } else if (error instanceof AuthFailureError) {
+                message(getString(R.string.error_network_auth));
+            } else if (error instanceof ServerError) {
+                message(getString(R.string.error_network_server));
+            } else if (error instanceof NetworkError) {
+                message(getString(R.string.error_network));
+            } else if (error instanceof ParseError) {
+                message(getString(R.string.error_parse));
+            } else {
+                message(getString(R.string.error_status));
+            }
+
+            progressDialog.dismiss();
         });
-    }
 
-    @OnClick(R.id.set_checklist_title)
-    void onSetTitleButtonClicked() {
-        String title = checklistTitleEditText.getText().toString();
-        if (!TextUtils.isEmpty(title)) {
-            setTitle(title);
+        RequestQueue requestQueue = Volley.newRequestQueue(ChecklistActivity.this);
+        requestQueue.add(request);
+	}
+
+    private boolean isAllowedToProceed() {
+        int totalQuestions = checklistItemAdapter.getItemCount();
+        int negativeAnswersCount = 0;
+        for(int i=0; i< totalQuestions; i++){
+            if(checklistItemAdapter.getList().get(i).isChecked()){
+                negativeAnswersCount++;
+            }
         }
+
+        if(negativeAnswersCount > totalQuestions/2){
+            return false;
+        }
+
+        return true;
     }
 
-    @OnTextChanged(value = R.id.add_checklist_name, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void onChecklistNameChanged(Editable editable) {
-        setChecklistTitleButton.setEnabled(editable.length() > 0);
+    private void saveAnswers() {
+        progressDialog.setMessage(getString(R.string.loading_saving_answers));
+        progressDialog.show();
+        String url = Urls.UPDATE_ANSWERS_URL;
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+            Log.d(Generic.TAG, "Response is : " + response);
+            if(response.equals("User updated Successfully"))
+            {
+                gotoActivity(ChecklistActivity.this, ScreeningActivity.class);
+            }
+            else {
+                message("Saving failed!");
+            }
+            progressDialog.dismiss();
+        }, error -> {
+
+            if (error instanceof TimeoutError) {
+                message(getString(R.string.error_network_timeout));
+            } else if (error instanceof NoConnectionError) {
+                message(getString(R.string.error_network_no_connection));
+            } else if (error instanceof AuthFailureError) {
+                message(getString(R.string.error_network_auth));
+            } else if (error instanceof ServerError) {
+                message(getString(R.string.error_network_server));
+            } else if (error instanceof NetworkError) {
+                message(getString(R.string.error_network));
+            } else if (error instanceof ParseError) {
+                message(getString(R.string.error_parse));
+            } else {
+                message(getString(R.string.error_status));
+            }
+
+            progressDialog.dismiss();
+        }) {
+            @NonNull
+            @Override
+            protected Map<String, String> getParams() {
+                Map <String,String> params = new HashMap<>();
+                params.put("user_id", String.valueOf(currentUser.getUser_id()));
+                params.put("answers", checklistItemAdapter.getJsonAnswers());
+                params.put("category", answer_column);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ChecklistActivity.this);
+        requestQueue.add(request);
+    }
+
+    private void message(String message){
+        Toast.makeText(ChecklistActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }

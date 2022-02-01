@@ -13,4 +13,37 @@
         <item>brgy.salawag</item>
     </string-array>
 
+    <string-array name="valid_names">
+        <item>Benton</item>
+        <item>Yorgo</item>
+        <item>Stepha</item>
+        <item>Sanson</item>
+        <item>Geri</item>
+        <item>Lombard</item>
+        <item>benton</item>
+        <item>yorgo</item>
+        <item>stepha</item>
+        <item>sanson</item>
+        <item>geri</item>
+        <item>lombard</item>
+    </string-array>
+
+    <string-array name="valid_lastname">
+        <item>Sor</item>
+        <item>Gerrard</item>
+        <item>Janjic</item>
+        <item>Crathern</item>
+        <item>Drewell</item>
+        <item>Smaling</item>
+        <item>sor</item>
+        <item>gerrard</item>
+        <item>janjic</item>
+        <item>crathern</item>
+        <item>drewell</item>
+        <item>smaling</item>
+    </string-array>
+
+
+
+
 </resources>

@@ -53,8 +53,14 @@ public class User implements Serializable, Cloneable {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("suffix")
+    @Expose
+    private String suffix;
+    @SerializedName("bryId")
+    @Expose
+    private String brgyId;
 
-    public User(int user_id, Date dateofbirth, String placeofbirth, String mothersname, String fathersname, float birthheight, float birthweight, String sex, String firstname, String lastname, String city, String baranggay, String email, String password, String phone) {
+    public User(int user_id, Date dateofbirth, String placeofbirth, String mothersname, String fathersname, float birthheight, float birthweight, String sex, String firstname, String lastname, String city, String baranggay, String email, String password, String phone, String suffix, String brgyId) {
         this.user_id = user_id;
         this.dateofbirth = dateofbirth;
         this.placeofbirth = placeofbirth;
@@ -70,6 +76,8 @@ public class User implements Serializable, Cloneable {
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.suffix = suffix;
+        this.brgyId = brgyId;
     }
 
     public int getUser_id() {
@@ -194,6 +202,22 @@ public class User implements Serializable, Cloneable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public String getBrgyId() {
+        return brgyId;
+    }
+
+    public void setBrgyId(String brgyId) {
+        this.brgyId = brgyId;
     }
 
     public String getDateOfBirthString() {

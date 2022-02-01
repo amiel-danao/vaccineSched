@@ -97,4 +97,5 @@ public class Appointment implements Serializable {
     public int getDose() {
         return dose;
     }
+
 }

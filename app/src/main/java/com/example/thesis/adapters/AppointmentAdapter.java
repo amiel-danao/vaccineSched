@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thesis.R;
 import com.example.thesis.models.Appointment;
-import com.example.thesis.models.Schedule;
 import com.example.thesis.models.User;
 import com.example.thesis.utilities.DateUtil;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder>{
     private final Context context;
-    ArrayList<Appointment> appointmentsList;
+    private ArrayList<Appointment> appointmentsList;
     private final User currentUser;
 
     public AppointmentAdapter(Context context, ArrayList<Appointment> appointmentsList, User currentUser, String serverDate) {
@@ -44,12 +43,15 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 context.getResources().getString(R.string.word_date_format)));
         holder.txt_appointment_time.setText(String.valueOf(appointment.getAppo_time()));
         holder.txt_appointment_place.setText(appointment.getPlace());
-        holder.txt_appointment_dose.setText(String.valueOf( appointment.getDose()));
         holder.txt_appointment_vaccine.setText(appointment.getVaccine());
+        holder.txt_status_vaccine.setText(appointment.getStatus());
     }
 
     @Override
     public int getItemCount() {
+        if(appointmentsList == null){
+            return 0;
+        }
         return appointmentsList.size();
     }
 
@@ -59,7 +61,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         private final TextView txt_appointment_time;
         private final TextView txt_appointment_place;
         private final TextView txt_appointment_vaccine;
-        private final TextView txt_appointment_dose;
+        public final TextView txt_status_vaccine;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,7 +70,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             txt_appointment_time = itemView.findViewById(R.id.timeAppointment);
             txt_appointment_place = itemView.findViewById(R.id.PlaceAppointment);
             txt_appointment_vaccine = itemView.findViewById(R.id.vaccineAppointment);
-            txt_appointment_dose = itemView.findViewById(R.id.doseAppointment);
+            txt_status_vaccine = itemView.findViewById(R.id.statusAppointment);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

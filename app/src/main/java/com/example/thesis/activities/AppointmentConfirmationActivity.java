@@ -38,6 +38,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
     private TextView txt_scheduleTime;
     private TextView txt_vaccineName;
     private TextView txt_vaccineDose;
+    private TextView txt_schedulePlace;
     private Context context;
     private ProgressDialog progressDialog;
 
@@ -135,6 +136,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                         context.getResources().getString(R.string.simple_date_format)));
                 params.put("appo_time", selectedSchedule.getTime());
                 params.put("place", selectedSchedule.getPlace());
+                params.put("vaccine" , selectedVaccine.getName());
                 return params;
             }
         };
@@ -154,11 +156,11 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
             if(response.equals(getString(R.string.response_ok))){
                 finish();
                 gotoActivity(AppointmentConfirmationActivity.this, HomeActivity.class);
+                message("Selected Successfully");
             }
             else{
                 message(response);
             }
-
             progressDialog.dismiss();
         }, error -> {
 
@@ -196,6 +198,9 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                 params.put("place", selectedSchedule.getPlace());
                 params.put("email", currentUser.getEmail());
                 params.put("status", getString(R.string.default_appointment_status));
+                params.put("scheduleId", String.valueOf(selectedSchedule.getId()));
+                params.put("capacity", String.valueOf(Math.max(0, selectedSchedule.getCapacity() - 1)));
+
                 return params;
             }
         };
@@ -209,13 +214,15 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
         txt_scheduleTime.setText(selectedSchedule.getTime());
         txt_vaccineName.setText(selectedVaccine.getName());
         txt_vaccineDose.setText(String.valueOf(selectedVaccine.getDose()));
+        txt_schedulePlace.setText(selectedSchedule.getPlace());
     }
 
     private void getViews() {
         txt_scheduleDate = findViewById(R.id.dateAppointment);
         txt_scheduleTime = findViewById(R.id.timeAppointment);
         txt_vaccineName = findViewById(R.id.vaccineAppointment);
-        txt_vaccineDose = findViewById(R.id.doseAppointment);
+        txt_vaccineDose = findViewById(R.id.statusAppointment);
+        txt_schedulePlace = findViewById(R.id.placeAppointment);
     }
 
     public void message(String message){

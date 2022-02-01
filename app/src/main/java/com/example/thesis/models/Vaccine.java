@@ -26,6 +26,21 @@ public class Vaccine implements Serializable {
     @SerializedName("date")
     @Expose
     private Date date;
+    @SerializedName("manufacturer")
+    @Expose
+    private String manufacturer;
+    @SerializedName("atccode")
+    @Expose
+    private String atccode;
+    @SerializedName("target")
+    @Expose
+    private String target;
+    @SerializedName("storage")
+    @Expose
+    private String storage;
+
+
+
 
     public int getId() {
         return id;
@@ -49,5 +64,18 @@ public class Vaccine implements Serializable {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+    public String getAtccode() {
+        return atccode;
+    }
+    public String getTarget() {
+        return target;
+    }
+    public String getStorage() {
+        return storage;
     }
 }

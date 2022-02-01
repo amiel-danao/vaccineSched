@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class VaccinesAdapter extends RecyclerView.Adapter<VaccinesAdapter.ViewHolder> implements Filterable {
 
     private final Context context;
-    ArrayList<Vaccine> arrayVaccines, dataFilter;
+    public ArrayList<Vaccine> arrayVaccines, dataFilter;
     CustomFilter filter;
     private User currentUser;
 
@@ -49,11 +49,13 @@ public class VaccinesAdapter extends RecyclerView.Adapter<VaccinesAdapter.ViewHo
         Vaccine vaccine = arrayVaccines.get(position);
         
         holder.txt_vaccine_name.setText(vaccine.getName());
-        holder.txt_dose.setText(String.valueOf(vaccine.getDose()));
     }
 
     @Override
     public int getItemCount() {
+		if(arrayVaccines == null){
+			return 0;
+		}
         return arrayVaccines.size();
     }
 
@@ -68,13 +70,13 @@ public class VaccinesAdapter extends RecyclerView.Adapter<VaccinesAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         
         private final TextView txt_vaccine_name;
-        private final TextView txt_dose;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txt_vaccine_name = itemView.findViewById(R.id.rcy_name);
-            txt_dose = itemView.findViewById(R.id.rcy_dose);
+
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

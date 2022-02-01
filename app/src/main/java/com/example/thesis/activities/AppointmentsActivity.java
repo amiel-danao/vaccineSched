@@ -44,7 +44,6 @@ public class AppointmentsActivity extends AuthenticatedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointments);
-
         if(isFinishing()){
             return;
         }
@@ -62,7 +61,6 @@ public class AppointmentsActivity extends AuthenticatedActivity {
     }
 
     private void getServerDate() {
-
         progressDialog.show();
         String url = Urls.GET_SERVER_DATE;
 

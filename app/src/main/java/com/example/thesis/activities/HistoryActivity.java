@@ -1,6 +1,5 @@
 package com.example.thesis.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +20,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thesis.R;
 import com.example.thesis.adapters.AppointmentAdapter;
+import com.example.thesis.adapters.HistoryAdapter;
 import com.example.thesis.models.Appointment;
+import com.example.thesis.models.History;
 import com.example.thesis.utilities.Urls;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,8 +35,8 @@ import java.util.Map;
 public class HistoryActivity extends AuthenticatedActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Appointment> appointments;
-    private AppointmentAdapter appointmentAdapter;
+    private ArrayList<History> historyList;
+    private HistoryAdapter historyAdapter;
     private ProgressDialog progressDialog;
     private Context context;
     private String serverDate;
@@ -53,7 +54,6 @@ public class HistoryActivity extends AuthenticatedActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading_your_appointments));
         progressDialog.setCancelable(false);
-
         recyclerView = findViewById(R.id.appointmentsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,13 +86,13 @@ public class HistoryActivity extends AuthenticatedActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             try {
 
-                Type typeModelAppointments = new TypeToken<ArrayList<Appointment>>() {
+                Type typeModelAppointments = new TypeToken<ArrayList<History>>() {
                 }.getType();
 
-                appointments = new Gson().fromJson(response, typeModelAppointments);
-                appointmentAdapter = new AppointmentAdapter(HistoryActivity.this, appointments,
-                        currentUser,  serverDate);
-                recyclerView.setAdapter(appointmentAdapter);
+                historyList = new Gson().fromJson(response, typeModelAppointments);
+                historyAdapter = new HistoryAdapter(HistoryActivity.this, historyList,
+                        currentUser);
+                recyclerView.setAdapter(historyAdapter);
 
             } catch (Exception e) {
                 message(e.getMessage());

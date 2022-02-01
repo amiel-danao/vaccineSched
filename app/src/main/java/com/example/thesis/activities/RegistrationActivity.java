@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,7 @@ import com.example.thesis.models.User;
 import com.example.thesis.validations.BrgyValidation;
 import com.example.thesis.validations.CityValidation;
 import com.example.thesis.validations.EmailValidation;
+import com.example.thesis.validations.LastNameValidation;
 import com.example.thesis.validations.NameValidation;
 import com.example.thesis.validations.PasswordValidation;
 import com.example.thesis.validations.PhoneNumberValidation;
@@ -53,6 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText Lastname;
     private EditText Email;
     private EditText Password;
+    private EditText ConfirmPassword;
     private EditText Phone;
     private EditText edt_City;
     private EditText edt_Baranggay;
@@ -72,25 +76,26 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         Lastname = findViewById(R.id.lastname);
         Email = findViewById(R.id.email);
+        ConfirmPassword = findViewById(R.id.conpassword);
         Password = findViewById(R.id.password);
         Phone = findViewById(R.id.phone);
         edt_City = findViewById(R.id.city);
         edt_Baranggay = findViewById(R.id.editBrgy);
         Firstname = findViewById(R.id.firstname);
         BrgyId = findViewById(R.id.editCardId);
-        Suffix = findViewById(R.id.suffix);
+        Suffix = findViewById(R.id.editSuffix);
 
         context = getApplicationContext();
 
         fieldsToValidate = new Validation[]{
                 new NameValidation(context, Firstname),
-                new NameValidation(context, Lastname),
+                new LastNameValidation(context, Lastname),
                 new CityValidation(context, edt_City),
                 new BrgyValidation(context, edt_Baranggay),
                 new EmailValidation(context, Email),
                 new PhoneNumberValidation(context, Phone),
                 new PasswordValidation(context, Password)
-                };
+        };
 
         /* FOR DEBUGGING ONLY */
         TextView txtAutoFill = findViewById(R.id.textView2);
@@ -100,7 +105,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Firstname.setText("testfirstname");
                 Lastname.setText("testlastname");
                 Email.setText("test@email.com");
-                Password.setText("Password123$");
+                Password.setText("Pass123@");
+                ConfirmPassword.setText("Pass123@");
                 Phone.setText("09912345678");
                 edt_City.setText("Dasmariñas");
                 edt_Baranggay.setText("Salawag");
@@ -140,6 +146,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 message(validation.getErrorMessage());
                 validation.showError();
                 return false;
+            }if(!Password.getText().toString().equals(ConfirmPassword.getText().toString())){
+                message("Password doesn't Match");
+                return false;
             }
         }
 
@@ -174,7 +183,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 },
                 new Callable<Void>() {
                     public Void call() {
-                        registerUser(firstName, lastName, email, city, brgy, phone, password);
+                        registerUser(firstName, lastName, email, city, brgy, phone, password, suffix, brgyId);
                         return null;
                     }
                 });
@@ -288,7 +297,10 @@ public class RegistrationActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    private void registerUser(String firstname, String lastname, String email, String city, String brgy, String phone, String password) {
+    private void registerUser(String firstname, String lastname, String email, String city,
+                              String brgy, String phone, String password, String suffix, String brgy_id) {
+
+        progressDialog.setMessage("Creating Your Account");
         progressDialog.show();
 
         String url = Urls.REGISTER_URL;
@@ -299,10 +311,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 User user = new Gson().fromJson(response, User.class);
 
                 if (user != null) {
-
-                    Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
-                    intent.putExtra(Generic.USER_LOGGED_IN_TAG, user);
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    message("Account Created Successfully");
                     finish();
                 }
             }
@@ -342,6 +353,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 params.put("brgy", brgy);
                 params.put("phone" ,phone);
                 params.put("password", password);
+                params.put("suffix", suffix);
+                params.put("brg_id", brgy_id);
                 return params;
             }
         };

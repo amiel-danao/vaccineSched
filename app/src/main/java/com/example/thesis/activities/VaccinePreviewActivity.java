@@ -11,7 +11,7 @@ import com.example.thesis.utilities.Generic;
 
 public class VaccinePreviewActivity extends AuthenticatedActivity {
     private Button btnVaccineSelect;
-    TextView title,description,dose;
+    TextView title,description,dose,manufacturer,atccode,target;
     private Vaccine selectedVaccine;
 
     @Override
@@ -45,12 +45,16 @@ public class VaccinePreviewActivity extends AuthenticatedActivity {
         title.setText(selectedVaccine.getName());
         description.setText(selectedVaccine.getDescription());
         dose.setText(String.valueOf(selectedVaccine.getDose()));
+        atccode.setText(String.valueOf(selectedVaccine.getAtccode()));
+        target.setText(String.valueOf(selectedVaccine.getTarget()));
     }
 
     private void getViews() {
         title = findViewById(R.id.title1);
         description = findViewById(R.id.description1);
         dose = findViewById(R.id.dose);
+        atccode  = findViewById(R.id.atccode);
+        target = findViewById(R.id.target);
     }
 
     private void checkSelectedVaccine(Bundle bundle) {

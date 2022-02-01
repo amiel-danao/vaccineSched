@@ -31,7 +31,7 @@ public class CityValidation extends Validation{
             }
         }
 
-        errorMessage = "Vaccines are not available in the city : " + cityNameToCheck;
+        errorMessage = "Registration is not available in your City ";
         return false;
     }
 }

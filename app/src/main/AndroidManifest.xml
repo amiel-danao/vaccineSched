@@ -6,41 +6,88 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.type.watch" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Thesis">
-        <activity android:name=".NotificationView" android:screenOrientation="portrait"/>
-        <activity android:name=".Notification" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.EditProfileActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".RegistrationForAppointment" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AppointmentConfirmationActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.VaccinePreviewActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.VaccinesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AppointmentsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SchedulesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.HistoryActivity" android:screenOrientation="portrait"/>
+        android:theme="@style/Theme.Thesis"
+        android:usesCleartextTraffic="true">
+
+		<activity
+            android:name=".activities.ChecklistActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ScreeningActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ChangePassword"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NotificationView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Notification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegistrationForAppointment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AppointmentConfirmationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.VaccinePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.VaccinesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AppointmentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SchedulesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.HistoryActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Infomation"
             android:label="Details"
-            android:parentActivityName=".MainActivity2" android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity2" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.HomeActivity" android:screenOrientation="portrait">
+            android:parentActivityName=".MainActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegistrationActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.LoginActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

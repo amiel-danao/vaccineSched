@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Online Registration</string>
+    <string name="app_name">VaxxSalawag</string>
     <string name="title_activity_r_e_g_i_s_t_e_r__f_o_r_m">REGISTER_FORM</string>
     <!--
     This string is used for square devices and overridden by hello_world in
@@ -50,7 +50,7 @@
     <string name="simple_date_format">yyyy-MM-dd</string>
     <string name="word_date_format">MMMM-dd-yyyy</string>
     <string name="error_invalid_date">Invalid date!</string>
-    <string name="error_age_not_allowed">Minimum age of %1$d are only allowed to be vaccinated!</string>
+    <string name="error_age_not_allowed">Minimum age of %1$d are only onlyallowed to be vaccinated!</string>
     <string name="used_time_zone">Asia/Hong_Kong</string>
     <string name="instant_zero_time">T00:00:00.00Z</string>
     <string name="error_network_timeout">Network TimeoutError</string>
@@ -60,10 +60,12 @@
     <string name="error_network">Network Error</string>
     <string name="error_parse">Parse Error</string>
     <string name="error_status">Status Error!</string>
-    <string name="vaccine_fill_up_title">Please Fill up the following</string>
+    <string name="vaccine_fill_up_title">FILL UP ALL FIELDS TO PROCEED</string>
     <string name="edit_profile_title">Edit Profile</string>
     <string name="loading">Loading...</string>
     <string name="vaccines_loading_message">Getting available vaccines</string>
+    <string name="questions_loading_message">Loading checklist</string>
+    <string name="loading_saving_answers">Saving checklist</string>
     <string name="schedules_loading">Getting all available schedules</string>
     <string name="full_name">%1$s %2$s</string>
     <string name="regex_valid_name">[A-Za-z ]*</string>
@@ -75,5 +77,10 @@
     <string name="response_ok">OK</string>
     <string name="default_appointment_status">WAITING</string>
     <string name="loading_your_appointments">Getting all your appointments...</string>
+    <string name="accept_checklist">By Confirming I hereby authorize VaxxSalawag, to collect and process the data indicated herein for the
+    Purpose of Monitoring Health for vaccine operations.
+    </string>
+    <string name="accept_screening">By Confirming I hereby authorize VaxxSalawag, to collect and process the data indicated herein for the purpose of effecting control of the COVID-19 infection.
+    </string>
     <integer name="minimum_age_for_vaccine">16</integer>
 </resources>

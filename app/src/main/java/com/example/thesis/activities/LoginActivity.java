@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private Validation[] fieldsToValidate;
     private Context context;
 
-    @Override 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 new EmailValidation(context, Email),
                 new PasswordValidation(context, Password)
         };
-        
+
         /* FOR DEBUGGING PURPOSE ONLY */
         TextView textAutoFill = findViewById(R.id.textView);
         textAutoFill.setOnClickListener(new View.OnClickListener(){
@@ -69,11 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {                
+            @Override public void onClick(View view) {
                 if (isFormValid()) {
                     UserLogin(Email.getText().toString(), Password.getText().toString());
                 } else {
                     message("Wrong email or password!");
+                    Log.d(Generic.TAG, "invalid input");
                 }
             }
         });
@@ -93,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.LOGIN_URL, response -> {
+            Log.d(Generic.TAG, response);
             try {
                 User user = new Gson().fromJson(response, User.class);
                 if (user != null) {
@@ -106,13 +109,14 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     //message(response);
                     message("Wrong email or password!");
+
                 }
             }
             catch (JsonSyntaxException exception){
-                //message(exception.getMessage());
+                Log.d(Generic.TAG, exception.getMessage());
                 message("Wrong email or password!");
             }
-            
+
             progressDialog.dismiss();
         }, error -> {
 
@@ -134,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
         }) {
-            @Override 
+            @Override
             protected Map < String, String > getParams() {
                 Map < String, String > params = new HashMap < String, String > ();
                 params.put("email", EmailHolder);

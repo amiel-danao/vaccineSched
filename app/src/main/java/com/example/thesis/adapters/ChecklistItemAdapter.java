@@ -1,17 +1,24 @@
-package com.example.thesis.checklist.adapters;
+package com.example.thesis.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.thesis.odels.ChecklistItem;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.thesis.models.Question;
+import com.example.thesis.utilities.Generic;
 import com.example.thesis.views.ChecklistItemViewHolder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChecklistItemAdapter extends RecyclerView.Adapter<ChecklistItemViewHolder> {
 
-    private List<ChecklistItem> checklistItemList = new ArrayList<>();
+    private List<Question> questionList = new ArrayList<>();
 
     @Override
     public ChecklistItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -20,48 +27,55 @@ public class ChecklistItemAdapter extends RecyclerView.Adapter<ChecklistItemView
 
     @Override
     public void onBindViewHolder(ChecklistItemViewHolder holder, int position) {
-        holder.setChecklistItem(checklistItemList.get(position), position, new ChecklistItemViewHolder.OnCheckListItemChangedListener() {
-            @Override
-            public void onNoteChanged(int position, String note) {
-                checklistItemList.get(position).setNote(note);
-            }
+        holder.setChecklistItem(questionList.get(position), position, new ChecklistItemViewHolder.OnCheckListItemChangedListener() {
 
             @Override
             public void onCheckChanged(int position, boolean checked) {
-                checklistItemList.get(position).setChecked(checked);
-            }
-
-            @Override
-            public void onNoteDelete(int position) {
-                checklistItemList.remove(position);
-                notifyDataSetChanged();
+                questionList.get(position).setChecked(checked);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return checklistItemList.size();
+        return questionList.size();
     }
 
-    public void setChecklistItems(List<ChecklistItem> items) {
-        checklistItemList.clear();
+    public void setChecklistItems(List<Question> items) {
+        questionList.clear();
 
         if (items != null) {
-            checklistItemList.addAll(items);
+            questionList.addAll(items);
         }
 
         notifyDataSetChanged();
     }
 
-    public void addChecklistItem(ChecklistItem item) {
+    public void addChecklistItem(Question item) {
         if (item != null) {
-            checklistItemList.add(item);
+            questionList.add(item);
             notifyDataSetChanged();
         }
     }
 
-    public List<ChecklistItem> getList() {
-        return checklistItemList;
+    public List<Question> getList() {
+        return questionList;
+    }
+
+    public String getJsonAnswers() {
+        JSONObject json=new JSONObject();
+
+        for (int i=0; i<getItemCount()-1; i++) {
+            try {
+                json.put(String.valueOf(questionList.get(i).getId()), questionList.get(i).isChecked()? "1": "0");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+
+        String retVal = json.toString();
+        Log.d(Generic.TAG, retVal);
+        return retVal;
     }
 }

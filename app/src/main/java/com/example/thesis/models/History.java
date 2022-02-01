@@ -2,7 +2,6 @@ package com.example.thesis.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -50,6 +49,13 @@ public class History implements Serializable {
     @Expose
     private int dose;
 
+    public int getAppo_id() {
+        return appo_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
 
     public Date getAppo_date() {
         return appo_date;
@@ -65,5 +71,9 @@ public class History implements Serializable {
 
     public int getDose() {
         return dose;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

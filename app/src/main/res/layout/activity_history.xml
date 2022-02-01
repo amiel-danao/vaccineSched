@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/form_bg"
+    android:background="@drawable/wave_2_bg"
     tools:context=".activities.AppointmentConfirmationActivity">
 
     <LinearLayout
@@ -16,10 +16,12 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:text="HISTORY"
             android:textAlignment="center"
-            android:textSize="36sp"  />
+            android:fontFamily="@font/roboto_black"
+            android:textColor="@color/black"
+            android:textSize="24sp"  />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appointmentsRecyclerView"

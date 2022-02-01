@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/form_bg"
+    android:background="@drawable/wave_1_bg"
     tools:context=".activities.SchedulesActivity">
 
     <LinearLayout
@@ -17,9 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="Available Schedule"
+            android:text="AVAILABLE SCHEDULES"
             android:textAlignment="center"
-            android:textSize="36sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/schedulesRecyclerView"

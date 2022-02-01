@@ -36,11 +36,8 @@ public class HomeActivity extends AuthenticatedActivity implements NavigationVie
         cardView1=(CardView)findViewById(R.id.cardview1);
         cardView1.setOnClickListener(v -> gotoActivity(HomeActivity.this, HistoryActivity.class));
 
-        cardView2 =(CardView)findViewById(R.id.cardview2);
-        cardView2.setOnClickListener(v -> gotoActivity(HomeActivity.this, Notification.class));
-
         cardView3 =(CardView)findViewById(R.id.cardview3);
-        cardView3.setOnClickListener(v -> gotoActivity(HomeActivity.this, VaccinesActivity.class));
+        cardView3.setOnClickListener(v -> gotoActivity(HomeActivity.this, ChecklistActivity.class));
 
 
         cardView4 =(CardView)findViewById(R.id.cardview4);
@@ -56,6 +53,7 @@ public class HomeActivity extends AuthenticatedActivity implements NavigationVie
         txtUserName.setText(getResources().getString(R.string.full_name, currentUser.getFirstname(), currentUser.getLastname()));
         //for toolbar
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         //end for toolbar
 
         //for navigatation bar
@@ -83,7 +81,6 @@ public class HomeActivity extends AuthenticatedActivity implements NavigationVie
 
         switch (menuItem.getItemId()){
             case R.id.nav_logout:
-                finish();
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;

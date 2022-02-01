@@ -36,15 +36,15 @@ public class VaccinesActivity extends AuthenticatedActivity {
     private VaccinesAdapter vaccinesAdapter;
     private ProgressDialog progressDialog;
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaccines);
 
-         if(isFinishing()){
-             return;
-         }
+        if(isFinishing()){
+            return;
+        }
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.vaccines_loading_message));

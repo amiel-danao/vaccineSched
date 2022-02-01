@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
 
 public class NameValidation extends Validation {
 
+
+    private final String[] VALID_NAMES= context.getResources().getStringArray(R.array.valid_names);
+
+
     public NameValidation(Context context, String stringToCheck) {
         super(context, stringToCheck);
     }
@@ -26,8 +30,16 @@ public class NameValidation extends Validation {
             return false;
         }
 
-        return Pattern.compile(context.getResources().getString(R.string.regex_valid_name))
-                .matcher(nameToCheck.trim())
-                .matches();
+        /*for(String thisName : VALID_NAMES ) {
+            if(thisName.toLowerCase().trim().equals(nameToCheck.toLowerCase().trim())){
+                return true;
+            }
+        }
+        errorMessage = "Only residents of Salawag can register, Contact the Baranggay for further Questions.";*/
+        return true;
+
+
+
+
     }
 }

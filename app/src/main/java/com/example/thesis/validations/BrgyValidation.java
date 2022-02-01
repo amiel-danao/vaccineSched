@@ -7,7 +7,7 @@ import android.widget.EditText;
 import com.example.thesis.R;
 
 public class BrgyValidation extends Validation{
-    
+
     private final String[] VALID_BRGYS = context.getResources().getStringArray(R.array.valid_brgys);
 
     public BrgyValidation(Context context, String stringToCheck) {
@@ -31,7 +31,7 @@ public class BrgyValidation extends Validation{
             }
         }
 
-        errorMessage = "Vaccines are not available in the brgy : " + brgyNameToCheck;
+        errorMessage = "Registrations not availabe in your baranggay. Contact Baranggay Salawag for further Questions " ;
         return false;
     }
 }

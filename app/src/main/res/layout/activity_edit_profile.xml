@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/form_bg"
-    tools:context=".EditProfileActivity">
+    android:background="@drawable/bg_people_shield"
+    tools:context=".activities.EditProfileActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -33,9 +33,11 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
                 android:ems="10"
                 android:hint="First name:"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:paddingStart="10dp" />
 
             <EditText
@@ -44,15 +46,32 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
                 android:ems="10"
                 android:hint="Last name:"
-                android:inputType="textPersonName"
-                android:paddingStart="10dp"/>
+                android:inputType="none"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/editSuffix"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
+                android:ems="10"
+                android:hint="Suffix:"
+                android:inputType="none"
+                android:maxLength="10"
+                android:paddingStart="10dp" />
 
             <EditText
                 android:id="@+id/editBday"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
+                android:backgroundTint="#F3F5F8"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
                 android:ems="10"
@@ -68,6 +87,7 @@
                 android:id="@+id/editBirthPlace"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
+                android:backgroundTint="#F3F5F8"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
                 android:ems="10"
@@ -81,9 +101,11 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
                 android:ems="10"
                 android:hint="City:"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:paddingStart="10dp" />
 
             <EditText
@@ -92,9 +114,24 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
                 android:ems="10"
                 android:hint="Brgy:"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/editCardId"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
+                android:editable="false"
+                android:ems="10"
+                android:hint="Brgy Id:"
+                android:inputType="none"
                 android:paddingStart="10dp" />
 
             <EditText
@@ -103,6 +140,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
                 android:ems="10"
                 android:hint="Sex"
                 android:inputType="textPersonName"
@@ -114,6 +152,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
                 android:ems="10"
                 android:hint="Birth Weight:"
                 android:inputType="numberDecimal"
@@ -125,6 +164,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
+                android:backgroundTint="#F3F5F8"
                 android:ems="10"
                 android:hint="Birth Height:"
                 android:inputType="numberDecimal"
@@ -134,11 +174,11 @@
                 android:id="@+id/editPhone"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
+                android:backgroundTint="#F3F5F8"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
-                android:drawableStart="@drawable/ic_baseline_phone_24"
                 android:ems="10"
-                android:hint="PhoneNumber:"
+                android:hint="Phone Number:"
                 android:inputType="phone"
                 android:paddingStart="10dp" />
 
@@ -146,6 +186,7 @@
                 android:id="@+id/editMothersName"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
+                android:backgroundTint="#F3F5F8"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
                 android:ems="10"
@@ -157,6 +198,7 @@
                 android:id="@+id/editFathersName"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
+                android:backgroundTint="#F3F5F8"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg2"
                 android:ems="10"
@@ -170,6 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg"
+                android:fontFamily="@font/bold_roboto"
                 android:backgroundTint="#AAE09E"
                 android:text="ChangePassword"
                 android:textColor="#000000" />
@@ -182,6 +225,8 @@
         android:layout_height="wrap_content"
         android:text="@string/vaccine_fill_up_title"
         android:textSize="24sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -204,8 +249,9 @@
             android:layout_height="match_parent"
             android:layout_weight=".4"
             android:background="@drawable/input_bg"
-            android:backgroundTint="#B9ECB5"
             android:text="Confirm"
+            android:backgroundTint="#F3F5F8"
+            android:fontFamily="@font/bold_roboto"
             android:textColor="#323232" />
 
         <Space
@@ -219,7 +265,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".2"
             android:background="@drawable/input_bg"
-            android:backgroundTint="#B9ECB5"
+            android:backgroundTint="#F3F5F8"
             android:contentDescription="back button"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
