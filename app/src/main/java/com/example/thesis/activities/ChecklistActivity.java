@@ -1,6 +1,7 @@
 package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import androidx.appcompat.app.AlertDialog;
 
 public class ChecklistActivity extends AuthenticatedActivity {
 
@@ -59,6 +61,19 @@ public class ChecklistActivity extends AuthenticatedActivity {
         checklistRecyclerView = findViewById(R.id.recycler_view_checklist);
         confirmButton = findViewById(R.id.btn_confirm_checklist);
     }
+	
+	private void showInstruction(){
+		AlertDialog alertDialog = new AlertDialog.Builder(ChecklistActivity.this).create();
+		alertDialog.setTitle("Instruction");
+		alertDialog.setMessage("Check the box if yes leave it blank if no.");
+		alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+		alertDialog.show();
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +83,8 @@ public class ChecklistActivity extends AuthenticatedActivity {
 		if(isFinishing()){
             return;
         }
+		
+		showInstruction();
 
 		getViews();
 		

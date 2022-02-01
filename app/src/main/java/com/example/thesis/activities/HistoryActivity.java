@@ -5,9 +5,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -40,6 +41,19 @@ public class HistoryActivity extends AuthenticatedActivity {
     private ProgressDialog progressDialog;
     private Context context;
     private String serverDate;
+	
+	private void showInstruction(){
+		AlertDialog alertDialog = new AlertDialog.Builder(HistoryActivity.this).create();
+		alertDialog.setTitle("Instruction");
+		alertDialog.setMessage("Click the feedback button to give feedback on your schedule.");
+		alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+		alertDialog.show();
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,8 @@ public class HistoryActivity extends AuthenticatedActivity {
         if(isFinishing()){
             return;
         }
+		
+		showInstruction();
 
         context = getApplicationContext();
         progressDialog = new ProgressDialog(this);
