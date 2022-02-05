@@ -56,7 +56,7 @@ public class User implements Serializable, Cloneable {
     @SerializedName("suffix")
     @Expose
     private String suffix;
-    @SerializedName("bryId")
+    @SerializedName("brg_id_number")
     @Expose
     private String brgyId;
 
