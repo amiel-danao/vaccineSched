@@ -41,6 +41,9 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
     private TextView txt_schedulePlace;
     private Context context;
     private ProgressDialog progressDialog;
+    private String answersCheckList;
+    private String answersScreening;
+    private String appoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,17 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
         if(isFinishing()){
             return;
         }
+ 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        
+        if (intent.hasExtra("answersCheckList")) {
+             answersCheckList = bundle.getString("answersCheckList");
+        }
+
+        if (intent.hasExtra("answersScreening")) {
+             answersScreening = bundle.getString("answersScreening");
+        }
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
@@ -57,8 +71,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         context = getApplicationContext();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        
         if(bundle != null){
             selectedVaccine = (Vaccine)bundle.getSerializable(Generic.SELECTED_VACCINE_TAG);
             selectedSchedule = (Schedule) bundle.getSerializable(Generic.SELECTED_SCHEDULE);
@@ -145,6 +158,60 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
         requestQueue.add(request);
     }
 
+    private void saveAnswers() {
+        progressDialog.setMessage(getString(R.string.loading_saving_answers));
+        progressDialog.show();
+        String url = Urls.UPDATE_ANSWERS_URL;
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+            Log.d(Generic.TAG, "Response is : " + response);
+            if(response.equals("User updated Successfully"))
+            {
+                finish();
+                gotoActivity(AppointmentConfirmationActivity.this, HomeActivity.class);
+                message("Appointment was selected Successfully");
+            }
+            else {
+                message("Saving failed!");
+            }
+            progressDialog.dismiss();
+        }, error -> {
+
+            if (error instanceof TimeoutError) {
+                message(getString(R.string.error_network_timeout));
+            } else if (error instanceof NoConnectionError) {
+                message(getString(R.string.error_network_no_connection));
+            } else if (error instanceof AuthFailureError) {
+                message(getString(R.string.error_network_auth));
+            } else if (error instanceof ServerError) {
+                message(getString(R.string.error_network_server));
+            } else if (error instanceof NetworkError) {
+                message(getString(R.string.error_network));
+            } else if (error instanceof ParseError) {
+                message(getString(R.string.error_parse));
+            } else {
+                message(getString(R.string.error_status));
+            }
+
+            progressDialog.dismiss();
+        }) {
+            @NonNull
+            @Override
+            protected Map<String, String> getParams() {
+                Map <String,String> params = new HashMap<>();
+                params.put("user_id", String.valueOf(currentUser.getUser_id()));
+                params.put("answers_checklist", answersCheckList);
+                params.put("answers_screening", answersScreening);
+                params.put("appo_id", appoId);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(AppointmentConfirmationActivity.this);
+        requestQueue.add(request);
+    }
+
     private void addAppointment(){
         progressDialog.setMessage(getString(R.string.loading_saving_appointment));
         progressDialog.show();
@@ -153,10 +220,9 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
 
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
 
-            if(response.equals(getString(R.string.response_ok))){
-                finish();
-                gotoActivity(AppointmentConfirmationActivity.this, HomeActivity.class);
-                message("Selected Successfully");
+            appoId = response;
+            if(!response.equals("-1")){
+                saveAnswers();
             }
             else{
                 message(response);
