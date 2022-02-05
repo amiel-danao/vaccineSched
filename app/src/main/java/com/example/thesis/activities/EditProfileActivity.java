@@ -368,7 +368,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
         editBirthPlace.setText(currentUser.getPlaceofbirth());
         editCity.setText(currentUser.getCity());
         editBrgy.setText(currentUser.getBaranggay());
-        editBrgyId.setText(currentUser.getBrgId());
+        editBrgyId.setText(currentUser.getBrgyId());
         editSex.setText(currentUser.getSex());
         editWeight.setText(String.valueOf(currentUser.getBirthweight()));
         editHeight.setText(String.valueOf(currentUser.getBirthheight()));
