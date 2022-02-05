@@ -105,7 +105,9 @@ public class ScreeningActivity extends AuthenticatedActivity {
                                 message("You are not allowed to be vaccinated!");
                             }
                             else{
-                                saveAnswers();
+                                Intent intent = new Intent(ScreeningActivity.this, VaccinesActivity.class);
+                                intent.putExtra("answersScreening", checklistItemAdapter.getJsonAnswers());
+                                startActivity(intent); 
                             }
                         }
                         else{
@@ -159,57 +161,6 @@ public class ScreeningActivity extends AuthenticatedActivity {
         }
 
         return true;
-    }
-
-    private void saveAnswers() {
-        progressDialog.setMessage(getString(R.string.loading_saving_answers));
-        progressDialog.show();
-        String url = Urls.UPDATE_ANSWERS_URL;
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-            Log.d(Generic.TAG, "Response is : " + response);
-            if(response.equals("User updated Successfully"))
-            {
-                gotoActivity(ScreeningActivity.this, VaccinesActivity.class);
-            }
-            else {
-                message("Saving failed!");
-            }
-            progressDialog.dismiss();
-        }, error -> {
-
-            if (error instanceof TimeoutError) {
-                message(getString(R.string.error_network_timeout));
-            } else if (error instanceof NoConnectionError) {
-                message(getString(R.string.error_network_no_connection));
-            } else if (error instanceof AuthFailureError) {
-                message(getString(R.string.error_network_auth));
-            } else if (error instanceof ServerError) {
-                message(getString(R.string.error_network_server));
-            } else if (error instanceof NetworkError) {
-                message(getString(R.string.error_network));
-            } else if (error instanceof ParseError) {
-                message(getString(R.string.error_parse));
-            } else {
-                message(getString(R.string.error_status));
-            }
-
-            progressDialog.dismiss();
-        }) {
-            @NonNull
-            @Override
-            protected Map<String, String> getParams() {
-                Map <String,String> params = new HashMap<>();
-                params.put("user_id", String.valueOf(currentUser.getUser_id()));
-                params.put("answers", checklistItemAdapter.getJsonAnswers());
-                params.put("category", answer_column);
-
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(ScreeningActivity.this);
-        requestQueue.add(request);
     }
 
     private void message(String message){
