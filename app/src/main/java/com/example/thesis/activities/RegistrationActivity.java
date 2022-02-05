@@ -93,6 +93,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 new CityValidation(context, edt_City),
                 new BrgyValidation(context, edt_Baranggay),
                 new EmailValidation(context, Email),
+                new NameValidation(context, BrgyId),
                 new PhoneNumberValidation(context, Phone),
                 new PasswordValidation(context, Password)
         };
