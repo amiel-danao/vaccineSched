@@ -61,6 +61,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
     private EditText editBirthPlace;
     private EditText editCity;
     private EditText editBrgy;
+    private EditText editBrgyId;
     private EditText editSex;
     private EditText editWeight;
     private EditText editHeight;
@@ -348,6 +349,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
         editBirthPlace = findViewById(R.id.editBirthPlace);
         editCity = findViewById(R.id.editCity);
         editBrgy = findViewById(R.id.editBrgy);
+        editBrgyId = findViewById(R.id.editCardId);
         editSex = findViewById(R.id.editSex);
         editWeight = findViewById(R.id.editWeight);
         editHeight = findViewById(R.id.editHeight);
@@ -366,6 +368,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
         editBirthPlace.setText(currentUser.getPlaceofbirth());
         editCity.setText(currentUser.getCity());
         editBrgy.setText(currentUser.getBaranggay());
+        editBrgyId.setText(currentUser.getBrgId());
         editSex.setText(currentUser.getSex());
         editWeight.setText(String.valueOf(currentUser.getBirthweight()));
         editHeight.setText(String.valueOf(currentUser.getBirthheight()));
