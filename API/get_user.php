@@ -5,7 +5,7 @@ include_once('config.php');
 $email = $_POST['email'];
 $brg_id = $_POST['brg_id'];
 
-$select = "SELECT * FROM `usersinfo` WHERE email='$email' OR brg_id='$brg_id'";
+$select = "SELECT * FROM `usersinfo` WHERE email='$email' OR brg_id_number='$brg_id'";
 $exeselect = mysqli_query($connection, $select);
 
 $response = array();
