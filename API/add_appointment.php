@@ -22,12 +22,12 @@
 										
 										 
 	$exeinsert = mysqli_query($connection, $insert);
-	$response;
+	$response = "-1";
 
 	if($exeinsert) {
-		$response = "OK";
+		$response = mysqli_insert_id($connection);
 	} else {
-		$response = mysqli_error($connection);
+		$response = "-1";
 		return;
 	}
 	
@@ -37,9 +37,9 @@
 	$exededuct = mysqli_query($connection, $deduct);
 	
 	if($exededuct) {
-		$response = "OK";
+		
 	} else {
-		$response = mysqli_error($connection);
+		$response = "-1";
 		return;
 	}
 
