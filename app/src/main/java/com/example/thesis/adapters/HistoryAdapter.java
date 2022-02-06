@@ -80,7 +80,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.txt_appointment_status.setText(String.valueOf(history.getStatus()));
         holder.txt_appointment_vaccine.setText(history.getVaccine());
 
-        if(history.getStatus().toLowerCase().equals("completed")){
+        if(history.getStatus().toLowerCase().equals("vaccinated") ||
+			history.getStatus().toLowerCase().equals("1st dose done") ||
+			history.getStatus().toLowerCase().equals("2nd dose done")){
+				
             holder.btn_feedback.setTag(history);
             holder.btn_feedback.setVisibility(View.VISIBLE);
             holder.btn_feedback.setOnClickListener(feedback_click_listener);

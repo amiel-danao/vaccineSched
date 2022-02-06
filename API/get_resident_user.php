@@ -7,7 +7,7 @@
 	$lastname = $_POST['lastname'];
 	$suffix = $_POST['suffix'];
 
-	$select = "SELECT * FROM `resident_list` WHERE brg_id_number='$card_id' AND firstname='$firstname' AND lastname='$lastname' AND suffix='$suffix'";
+	$select = "SELECT * FROM `resident_list` WHERE `brg_id_number`='$card_id' AND `firstname`='$firstname' AND `lastname`='$lastname' AND `suffix`='$suffix'";
 	$exeselect = mysqli_query($connection, $select);
 
 	if(mysqli_num_rows($exeselect) > 0) {
