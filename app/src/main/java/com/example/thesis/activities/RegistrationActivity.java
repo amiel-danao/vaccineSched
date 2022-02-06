@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -247,20 +248,14 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             else {
                 try {
-                    User user = new Gson().fromJson(response, User.class);
-
-                    if (user != null) {
-                        try {
-                            callbackExist.call();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (JsonSyntaxException exception) {
-                    //Toast.makeText(REGISTER_FORM.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    message(response);
-                    progressDialog.hide();
+                    callbackExist.call();
+                } catch (Exception e) {
+                    Log.d(Generic.TAG, e.getMessage());
+                    e.printStackTrace();
                 }
+                //Log.d(Generic.TAG, exception.getMessage());
+                //message(response);
+                progressDialog.hide();
             }
 
         }, error -> {
@@ -307,7 +302,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String url = Urls.REGISTER_URL;
 
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-
+            Log.d(Generic.TAG, response);
             try {
                 User user = new Gson().fromJson(response, User.class);
 
@@ -317,8 +312,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     message("Account Created Successfully");
                     finish();
                 }
+
             }
             catch (JsonSyntaxException exception){
+                Log.d(Generic.TAG, exception.getMessage());
                 Toast.makeText(RegistrationActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
@@ -355,13 +352,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 params.put("phone" ,phone);
                 params.put("password", password);
                 params.put("suffix", suffix);
-                params.put("brg_id", brgy_id);
+                params.put("brgy_id", brgy_id);
                 return params;
             }
         };
 
         //AppController.getInstance().addToQueue(request, "edit_data");
 
+        request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(RegistrationActivity.this);
         requestQueue.add(request);
     }

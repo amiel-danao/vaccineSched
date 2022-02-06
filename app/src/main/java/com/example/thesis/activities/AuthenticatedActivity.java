@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.toolbox.StringRequest;
 import com.example.thesis.models.User;
 import com.example.thesis.utilities.Generic;
 
@@ -36,6 +38,10 @@ public class AuthenticatedActivity extends AppCompatActivity {
       intent = new Intent(context, LoginActivity.class);
       startActivity(intent);
     }
+  }
+
+  protected void setRetryPolicy(StringRequest request){
+    request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
   }
 
   protected void gotoActivity(Context packageContext, Class<?> cls){

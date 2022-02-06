@@ -3,7 +3,9 @@ package com.example.thesis.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -44,6 +47,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
     private String answersCheckList;
     private String answersScreening;
     private String appoId;
+    private int saveRetry = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +60,10 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
  
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        
-        if (intent.hasExtra("answersCheckList")) {
-             answersCheckList = bundle.getString("answersCheckList");
-        }
 
-        if (intent.hasExtra("answersScreening")) {
-             answersScreening = bundle.getString("answersScreening");
-        }
+        SharedPreferences sharedPref = getSharedPreferences(getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        answersCheckList = sharedPref.getString(Generic.ANSWERS_CHECKLIST_KEY, "");
+        answersScreening = sharedPref.getString(Generic.ANSWERS_SCREENING_KEY, "");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
@@ -191,6 +191,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                 message(getString(R.string.error_parse));
             } else {
                 message(getString(R.string.error_status));
+                Log.d(Generic.TAG, error.getMessage());
             }
 
             progressDialog.dismiss();
@@ -208,6 +209,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(AppointmentConfirmationActivity.this);
         requestQueue.add(request);
     }
@@ -244,6 +246,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
                 message(getString(R.string.error_parse));
             } else {
                 message(getString(R.string.error_status));
+                Log.d(Generic.TAG, error.getMessage());
             }
 
             progressDialog.dismiss();
@@ -271,6 +274,7 @@ public class AppointmentConfirmationActivity extends AuthenticatedActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(AppointmentConfirmationActivity.this);
         requestQueue.add(request);
     }

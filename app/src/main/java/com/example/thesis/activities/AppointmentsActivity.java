@@ -126,6 +126,7 @@ public class AppointmentsActivity extends AuthenticatedActivity {
             }
         };
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(AppointmentsActivity.this);
         requestQueue.add(request);
     }

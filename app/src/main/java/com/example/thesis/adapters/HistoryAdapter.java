@@ -168,6 +168,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 Map <String,String> params = new HashMap<>();
                 params.put("appo_id", String.valueOf(appo_id));
                 params.put("feedback", feedbackToSave);
+                params.put("user_id", String.valueOf(currentUser.getUser_id()));
 
                 return params;
             }

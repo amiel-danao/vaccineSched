@@ -1,14 +1,14 @@
 package com.example.thesis.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,14 +31,9 @@ import com.example.thesis.utilities.Urls;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
+
 import androidx.appcompat.app.AlertDialog;
 
 public class ChecklistActivity extends AuthenticatedActivity {
@@ -55,6 +50,7 @@ public class ChecklistActivity extends AuthenticatedActivity {
 
 	private Button confirmButton;
 	private Question acceptQuestion;
+    private SharedPreferences sharedPref;
 
     private void getViews(){
         toolbar = findViewById(R.id.toolbar);
@@ -83,7 +79,12 @@ public class ChecklistActivity extends AuthenticatedActivity {
 		if(isFinishing()){
             return;
         }
-		
+
+        sharedPref = getSharedPreferences(getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.apply();
+
 		showInstruction();
 
 		getViews();
@@ -125,9 +126,10 @@ public class ChecklistActivity extends AuthenticatedActivity {
                                 message("You are not allowed to be vaccinated!");
                             }
                             else{
-                               Intent intent = new Intent(ChecklistActivity.this, ScreeningActivity.class);
-                               intent.putExtra("answersCheckList", checklistItemAdapter.getJsonAnswers());
-                               startActivity(intent); 
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString(Generic.ANSWERS_CHECKLIST_KEY, checklistItemAdapter.getJsonAnswers());
+                                editor.apply();
+                                gotoActivity(ChecklistActivity.this, ScreeningActivity.class);
                             }
                         }
                         else{
@@ -163,6 +165,7 @@ public class ChecklistActivity extends AuthenticatedActivity {
             progressDialog.dismiss();
         });
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(ChecklistActivity.this);
         requestQueue.add(request);
 	}

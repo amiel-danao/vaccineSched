@@ -38,7 +38,27 @@ public class Vaccine implements Serializable {
     @SerializedName("storage")
     @Expose
     private String storage;
-
+    @SerializedName("mimsclass")
+    @Expose
+    private String mimsclass;
+    @SerializedName("atcclassification")
+    @Expose
+    private String atcclassification;
+    @SerializedName("precautions")
+    @Expose
+    private String precautions;
+    @SerializedName("adversereaction")
+    @Expose
+    private String adversereaction;
+    @SerializedName("druginteractions")
+    @Expose
+    private String druginteractions;
+    @SerializedName("contraindications")
+    @Expose
+    private String contraindications;
+    @SerializedName("expdate")
+    @Expose
+    private Date expdate;
 
 
 

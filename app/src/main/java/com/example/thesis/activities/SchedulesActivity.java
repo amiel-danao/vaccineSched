@@ -138,6 +138,7 @@ public class SchedulesActivity extends AuthenticatedActivity {
             progressDialog.dismiss();
         });
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(SchedulesActivity.this);
         requestQueue.add(request);
     }

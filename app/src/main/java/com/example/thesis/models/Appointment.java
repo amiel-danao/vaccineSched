@@ -42,6 +42,9 @@ public class Appointment implements Serializable {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("for_id")
+    @Expose
+    private int forId;
     @SerializedName("dose")
     @Expose
     private int dose;

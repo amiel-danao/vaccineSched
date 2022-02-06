@@ -57,6 +57,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
     private TextView txtEditProfileTitle;
     private EditText editTextFirstName;
     private EditText editTextLastName;
+    private EditText editSuffix;
     private EditText editBirthday;
     private EditText editBirthPlace;
     private EditText editCity;
@@ -250,6 +251,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
             }
         };
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(EditProfileActivity.this);
         requestQueue.add(request);
     }
@@ -345,6 +347,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
     private void getViews() {
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
+        editSuffix = findViewById(R.id.editSuffix);
         editBirthday = findViewById(R.id.editBday);
         editBirthPlace = findViewById(R.id.editBirthPlace);
         editCity = findViewById(R.id.editCity);
@@ -364,6 +367,7 @@ public class EditProfileActivity extends AuthenticatedActivity {
     private void fillUserInfo() {
         editTextFirstName.setText(currentUser.getFirstname());
         editTextLastName.setText(currentUser.getLastname());
+        editSuffix.setText(currentUser.getSuffix());
         editBirthday.setText(DateUtil.dateToString(currentUser.getDateofbirth(), context.getResources().getString(R.string.simple_date_format)));
         editBirthPlace.setText(currentUser.getPlaceofbirth());
         editCity.setText(currentUser.getCity());

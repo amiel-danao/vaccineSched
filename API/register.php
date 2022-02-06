@@ -10,12 +10,13 @@ $brgy = $_POST['brgy'];
 $phone = $_POST['phone'];
 $password = $_POST['password'];
 $brgy_id = $_POST['brgy_id'];
+$suffix = $_POST['suffix'];
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$insert = "INSERT INTO `usersinfo` (`user_id`, `dateofbirth`, `placeofbirth`,  `mothersname`, `fathersname`, `birthheight`, `birthweight`, `sex`, `firstname`, `lastname`, `city`, `baranggay`, `email`, `password`, `phone`, `brg_id_number`)
+$insert = "INSERT INTO `usersinfo` (`user_id`, `dateofbirth`, `placeofbirth`,  `mothersname`, `fathersname`, `birthheight`, `birthweight`, `sex`, `firstname`, `lastname`, `city`, `baranggay`, `email`, `password`, `phone`, `brg_id_number`, `suffix`)
                             									
-VALUES (NULL, NULL, '', '', '', '0', '0', '', '$firstname', '$lastname', '$city', '$brgy', '$email', '$hashed_password', '$phone', '$brgy_id')";
+VALUES (NULL, NULL, '', '', '', '0', '0', '', '$firstname', '$lastname', '$city', '$brgy', '$email', '$hashed_password', '$phone', '$brgy_id', '$suffix')";
 									
 									 
 
@@ -31,6 +32,7 @@ if($exeinsert) {
 	}
 } else {
   $response[0] = "Failed! Data Not Inserted";
+  echo mysqli_error($connection);
 }
 
 mysqli_free_result($exeinsert);

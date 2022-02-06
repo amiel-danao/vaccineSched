@@ -4,15 +4,16 @@
 
 	$feedback = $_POST['feedback'];
 	$appo_id = $_POST['appo_id'];
+	$user_id = $_POST['user_id'];
 	
-	$getdata = mysqli_query($connection, "select * from feedbacks where appo_id='$appo_id'");
+	$getdata = mysqli_query($connection, "select * from feedbacks where appo_id='$appo_id' AND `user_id`='$user_id'");
 	$rows = mysqli_num_rows($getdata);	
 	
 	if($rows > 0) 
 	{
-		$query = "UPDATE `feedbacks` SET `feedback` = '$feedback' WHERE `appo_id` = '$appo_id'";
+		$query = "UPDATE `feedbacks` SET `feedback` = '$feedback' WHERE `appo_id` = '$appo_id' AND `user_id`='$user_id'";
 	} else {
-		$query = "INSERT INTO feedbacks(`appo_id`, `feedback`) VALUES('$appo_id', '$feedback')";
+		$query = "INSERT INTO feedbacks(`appo_id`, `feedback`, `user_id`) VALUES('$appo_id', '$feedback', '$user_id')";
 	}
 										 
 	$exequery = mysqli_query($connection, $query);

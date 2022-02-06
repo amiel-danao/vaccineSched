@@ -82,5 +82,6 @@
     </string>
     <string name="accept_screening">By Confirming I hereby authorize VaxxSalawag, to collect and process the data indicated herein for the purpose of effecting control of the COVID-19 infection.
     </string>
+    <string name="preference_file_key">com.example.thesis.vaxxSalawag</string>
     <integer name="minimum_age_for_vaccine">16</integer>
 </resources>

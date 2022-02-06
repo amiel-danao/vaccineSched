@@ -25,6 +25,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +53,7 @@ public class ScreeningActivity extends AuthenticatedActivity {
 
     private Button confirmButton;
     private Question acceptQuestion;
+    private SharedPreferences sharedPref;
 
     private void getViews(){
         toolbar = findViewById(R.id.toolbar);
@@ -66,6 +70,7 @@ public class ScreeningActivity extends AuthenticatedActivity {
             return;
         }
 
+        sharedPref = getSharedPreferences(getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         getViews();
 
         progressDialog = new ProgressDialog(this);
@@ -105,9 +110,11 @@ public class ScreeningActivity extends AuthenticatedActivity {
                                 message("You are not allowed to be vaccinated!");
                             }
                             else{
-                                Intent intent = new Intent(ScreeningActivity.this, VaccinesActivity.class);
-                                intent.putExtra("answersScreening", checklistItemAdapter.getJsonAnswers());
-                                startActivity(intent); 
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString(Generic.ANSWERS_SCREENING_KEY, checklistItemAdapter.getJsonAnswers());
+                                editor.apply();
+
+                                gotoActivity(ScreeningActivity.this, VaccinesActivity.class);
                             }
                         }
                         else{
@@ -143,6 +150,7 @@ public class ScreeningActivity extends AuthenticatedActivity {
             progressDialog.dismiss();
         });
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(ScreeningActivity.this);
         requestQueue.add(request);
     }

@@ -98,6 +98,7 @@ public class VaccinesActivity extends AuthenticatedActivity {
             progressDialog.dismiss();
         });
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(VaccinesActivity.this);
         requestQueue.add(request);
     }

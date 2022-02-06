@@ -15,6 +15,9 @@ public class Answer implements Serializable {
     @SerializedName("user_id")
     @Expose
     private String user_id;
+    @SerializedName("appo_id")
+    @Expose
+    private String appoId;
 
     public int getAnswerChecklist() {
         return answerChecklist;

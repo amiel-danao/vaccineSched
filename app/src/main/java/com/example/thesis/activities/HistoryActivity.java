@@ -144,6 +144,7 @@ public class HistoryActivity extends AuthenticatedActivity {
             }
         };
 
+        setRetryPolicy(request);
         RequestQueue requestQueue = Volley.newRequestQueue(HistoryActivity.this);
         requestQueue.add(request);
     }
